@@ -3,11 +3,206 @@
 </head>
 
 <body>
-  {{> hello}}
+
 </body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+<!-- ////// LAYOUT ////// -->
+<template name="layout">	
+	<div style="background-color: #3a94b5; height: 8px;"></div>
+		<div id="header-containertop" style="padding-top:5px;">
+			<div class="row" style="margin-bottom:5px;">
+				<a href="/" style="margin-top:7px;padding-top:5px;">
+					<img alt="Scholarify | Online Apprenticeships" src="{{rootPath}}logosmall.png" />
+				</a>	
+				<div class="btn" style="float:right;">
+					{{loginButtons}}
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	{{{yield}}}
+
+	<div id="footer-section">
+		<div class="row">
+			<span><a href="/">Home</a></span>
+			<span> &middot; </span>
+			<span><a href="/about">About</a></span>
+			<span> &middot; </span>
+			<span><a href="/contact">Contact</a></span>
+		</div>
+	</div>
 </template>
+
+<!-- ////// PROFESSION ////// -->
+<template name="professionShow">
+	{{#with profession}}
+		<section id="bigbar">
+			<div class="row">
+				<nav class="bar-tab">
+					<ul class="tab-inner">
+						<li class="tab-item {{navClassFor 'inspire'}}">
+							<a href="#lA" data-toggle="tab">
+								<img src="{{rootPath}}courses.png" class="tab-icon"/>
+								<div class="tab-label">{{title}}</div>
+							</a>
+						</li>
+						<li class="tab-item {{navClassFor 'learn'}}">
+							<a href="#lB" data-toggle="tab">
+								<img src="{{rootPath}}materials.png" class="tab-icon"/>					
+								<div class="tab-label">Learn Skills</div>
+							</a>
+						</li>
+						<li class="tab-item {{navClassFor 'proof'}}">
+							<a href="#lC" data-toggle="tab">
+								<img src="{{rootPath}}feedback.png" class="tab-icon"/>				
+								<div class="tab-label">Create 'Masterpiece'</div>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</section>
+		<div class="container">
+			<div class="row">
+				<div class="card" style="min-height:700px;">
+					<div class="row">
+						<div class="twelve columns">
+							<div class="tab-content">
+								{{> inspire}}
+								{{> learn}}
+								{{> proof}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{{/with}}
+</template>
+
+<template name="inspire">
+	<div class="tab-pane {{navClassFor 'inspire'}}" id="lA">
+		<div class="nine columns">
+			<h2 style="margin-bottom:1px;">{{title}}</h2>
+		</div>
+		<div class="three columns">
+			<div class="well well-small">
+				<br>
+				<button>BECOME SCHOLAR</button>
+			</div>
+		</div>
+		<br>
+		<hr style="margin:0 0 2px;">
+		<br>
+		<div class="six columns" style="padding-left:0px;">
+			<br>
+			<iframe width="100%" height="300" src="http://www.youtube.com/embed/Jj3sytbH-SI" allowfullscreen
+				style="border: 4px solid #DDD; margin: 0 0 10px; max-width: 100% !important;"></iframe>
+		</div>
+		<br>
+		<div class="six columns">
+			<section class="intro">
+				<h3><small>What is it like to work for as {{title}}?</small></h3>
+				<p style="font-size:15px;">{{description}}</p>
+			</section>
+		</div>
+		<br>
+		<hr>
+
+		<div class="twelve columns">
+			<h3><small>What skills are required to succeed as {{title}}?</small></h3>
+			<p>{{requirements}}</p>
+		</div>	
+	</div>
+</template>
+
+<template name="learn">
+	<div class="tab-pane {{navClassFor 'learn'}}" id="lB">
+		<h4><small>{{title}}</small></h4>
+		<h2>Study Materials</h2>
+		<hr>
+
+		<div class="three columns">
+			<h5>Resources</h5>
+			<ul>
+				<li><p>Material Title</p></li>
+			</ul>
+		</div>
+
+		<div class="nine columns">
+			<div class="well">
+				{{materialHTML}}
+				<hr>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="proof">
+	<div class="tab-pane {{navClassFor 'proof'}}" id="lC">
+
+		<p>PROOF</p>
+	
+	</div>
+</template>
+
+<!-- ////// PROFESSIONS ////// -->
+<template name="professionsIndex">
+	<div class="container" id="main-section">
+		<div class="card">
+			<div class="page">
+				<div class="row" style="min-height:1000px;">
+					<h2>Our Apprenticeships</h2>
+					<p><b>Scholarify</b> in one of the following<b> professions</b>:</p>			
+					<hr>
+					{{#each professions}}
+						{{> professionPin }}
+					{{/each}}	
+					<hr>
+				</div>
+			</div>
+		</div>
+	</div>	
+</template>
+
+<template name="professionPin">
+	<div class="cardblock" style="float:left;">
+		<div class="front"> 
+			<img src={{imgUrl}}>
+			<h4><a href="{{professionPath}}">{{title}}</a></h4>
+			<br>
+			<p style="font-size:13px;">{{truncated_description}}</p>
+		</div>
+	</div>
+</template>
+
+<!-- ////// PROFESSION BACKEND ////// -->
+<template name="profession_backend">
+	<div class="well">
+		<p>BACKEND</p>
+	</div>
+</template>
+
+<!-- ////// STATIC ////// -->
+<template name="about">
+	<div class="well">
+		<p>ABOUT</p>
+	</div>
+</template>
+
+<template name="contact">
+	<div class="well">
+		<p>CONTACT</p>
+	</div>
+</template>
+
+<template name="notFound">
+	<div class="well">
+		<p>not found</p>
+	</div>
+</template>
+
+
+
