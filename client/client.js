@@ -1,9 +1,15 @@
 Meteor.subscribe("professions");
 
-setProfession = function (context, page) {
+function setProfession (context, page) {
 	var _id = context.params._id;
 	Session.set("profession", Professions.findOne(_id));
 };
+
+function authorizeAdmin (context, page) {
+    if (!Session.get("admin?")) {
+      context.redirect(Meteor.unauthorizedPath());
+    }
+  }
 
 Meteor.pages({
 
@@ -11,13 +17,18 @@ Meteor.pages({
 
     '/': { to: 'professionsIndex', as: 'root' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
+    '/professions/new': { to: 'profession_backend', as: 'new_profession' },
     '/profession/:_id': { to: 'professionShow', as: 'profession', before: setProfession, nav: 'inspire' },
     '/profession/:_id/inspire': { to: 'professionShow', before: setProfession, nav: 'inspire' },
     '/profession/:_id/learn': { to: 'professionShow', before: setProfession, nav: 'learn' },
     '/profession/:_id/proof': { to: 'professionShow', before: setProfession, nav: 'proof' },
-    '/backend': { to: 'profession_backend' },
+    '/profession/:id/edit': { to: 'profession_backend', before: [setProfession, authorizeAdmin], nav: 'inspire_backend' },
+    '/profession/:id/edit/inspire': { to: 'profession_backend', before: [setProfession, authorizeAdmin], nav: 'inspire_backend' },
+    '/profession/:id/edit/learn': { to: 'profession_backend', before: [setProfession, authorizeAdmin], nav: 'learn_backend' },
+    '/profession/:id/edit/proof': { to: 'profession_backend', before: [setProfession, authorizeAdmin], nav: 'proof_backend' },
     '/about': { to: 'about', as: 'about' },
     '/contact': { to: 'contact', as: 'contact' },
+    '/401': { to: 'unauthorized'},
     '*': 'notFound'
   }, {
 

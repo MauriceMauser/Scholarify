@@ -180,10 +180,43 @@
 
 <!-- ////// PROFESSION BACKEND ////// -->
 <template name="profession_backend">
-	<div class="well">
-		<p>BACKEND</p>
-	</div>
+	<div style="min-height:500px;">
+		<div class="container">
+			<div class="row">
+				<div class="card" style="min-height:700px;">
+					<h2>Edit Apprenticeship Content</h2>
+					<ul class="nav nav-tabs">
+						<li class="{{navClassFor 'inspire_backend'}}">	<a href="#bA" data-toggle="tab">Job Description</a></li>
+						<li class="{{navClassFor 'learn_backend'}}"><a href="#bB" data-toggle="tab">Learning Material</a></li>
+						<li class="{{navClassFor 'proof_backend'}}"><a href="#bC" data-toggle="tab">Validation Criteria</a></li>
+					</ul>
+					<div class="row">
+						<div class="twelve columns">
+							<div class="tab-content">
+								<div class="tab-pane {{navClassFor 'inspire_backend'}}" id="bA">{{> inspire_backend}}</div>
+								<div class="tab-pane {{navClassFor 'learn_backend'}}" 		 id="bB">{{> learn_backend}}</div>
+								<div class="tab-pane {{navClassFor 'proof_backend'}}" 		 id="bC">{{> proof_backend}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
 </template>
+
+<template name="inspire_backend">
+	<h4>INSPIRE BE</h4>
+</template>
+
+<template name="learn_backend">
+	<h4>LEARN BE</h4>
+</template>
+
+<template name="proof_backend">
+	<h4>PROOF BE</h4>
+</template>
+
 
 <!-- ////// STATIC ////// -->
 <template name="about">
@@ -202,6 +235,13 @@
 	<div class="well">
 		<p>not found</p>
 	</div>
+</template>
+
+<template name="unauthorized">
+  <div class="alert alert-error alert-block">
+    <h2>401 - Unauthorized</h2>
+    <h4>Sorry, you're not authorized to see the admin backend!</h4>
+  </div>
 </template>
 
 
