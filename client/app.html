@@ -206,11 +206,61 @@
 </template>
 
 <template name="inspire_backend">
-	<h4>INSPIRE BE</h4>
+	<div class="row">
+		<div class="three columns">
+			<p style="font-size:15px;"><i class="icon-info-sign" style="vertical-align:0;"></i> Job Title </p>
+		</div>
+		<div class="nine columns">
+		    <input id="profession_title" type="text" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="three columns">
+			<p style="font-size:15px;"><i class="icon-user" style="vertical-align:0;"></i> Sponsoring Company </p>
+		</div>
+		<div class="nine columns">
+		    <input id="profession_sponsor" type="text" />	
+		</div>
+	</div>
+	<div class="row">
+		<div class="three columns">
+			<p style="font-size:15px;"><i class="icon-film" style="vertical-align:0;"></i> Intro Video URL </p>
+		</div>
+		<div class="nine columns">
+		    <input id="profession_video" type="text" />	
+		</div>
+	</div>
+	<div class="row">
+		<div class="three columns">
+			<p style="font-size:15px;"><i class="icon-film" style="vertical-align:0;"></i> Thumbnail URL </p>
+		</div>
+		<div class="nine columns">
+			<input id="profession_image" type="text" />	
+		</div>
+	</div>
+	<div class="row">
+		<div class="three columns">
+			<p style="font-size:15px;"><i class="icon-list" style="vertical-align:0;"></i> Job Description </p>
+		</div>
+		<div class="nine columns">
+		    <input id="profession_description" type="text" style="width:100%;height:250px;" />	
+		</div>
+	</div>
+	<div class="row">
+		<div class="three columns">
+			<p style="font-size:15px;"><i class="icon-list" style="vertical-align:0;"></i> Requirements </p>
+		</div>
+		<div class="nine columns">
+			<input id="profession_requirements" type="text" style="width:100%;height:80px;" />	
+		</div>
+	</div>
+	<hr style="border: solid #fff;">
+	<input type="button" class="well well-large btn btn-large btn-block btn-success" id="create" value="Create Profession" />
 </template>
 
 <template name="learn_backend">
-	<h4>LEARN BE</h4>
+	<h4>Study Materials</h4>
+	<textarea id="redactor_content" name="content"></textarea>
 </template>
 
 <template name="proof_backend">

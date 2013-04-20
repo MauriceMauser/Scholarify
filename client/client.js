@@ -40,6 +40,10 @@ Meteor.pages({
 
 });
 
+Meteor.startup(function () {
+        $(document).ready(function(){ $('#redactor_content').redactor({ fixed: true }); });
+    });
+
 Handlebars.registerHelper("navClassFor", function (nav, options) {
       return Meteor.router.navEquals(nav) ? "active" : "";
   });
