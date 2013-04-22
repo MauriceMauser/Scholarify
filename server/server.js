@@ -1,4 +1,6 @@
 Meteor.startup(function() {
+	admin = 'PjpNzed76d7ztJYAg';
+
 	if (Professions.find().count() > 0) return;
 
 	for (var i = 0; i < 6; i++) {

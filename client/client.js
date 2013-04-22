@@ -5,11 +5,13 @@ function setProfession (context, page) {
 	Session.set("profession", Professions.findOne(_id));
 };
 
+
 function authorizeAdmin (context, page) {
-    if (!Session.get("admin?")) {
+    var userId = Meteor.userId();
+    if (userId != 'PjpNzed76d7ztJYAg') {
       context.redirect(Meteor.unauthorizedPath());
     }
-  }
+};
 
 Meteor.pages({
 
@@ -40,10 +42,6 @@ Meteor.pages({
 
 });
 
-Meteor.startup(function () {
-        $(document).ready(function(){ $('#redactor_content').redactor({ fixed: true }); });
-    });
-
 Handlebars.registerHelper("navClassFor", function (nav, options) {
       return Meteor.router.navEquals(nav) ? "active" : "";
   });
@@ -69,4 +67,10 @@ Template.professionPin.truncated_description = function () {
 
 Template.learn.materialHTML = function () {
     return new Handlebars.SafeString(this.material);
+};
+
+Template.learn_backend.rendered = function () {
+    (function () {
+            $('#redactor_content').redactor({ fixed: true });
+        }());
 };
