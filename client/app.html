@@ -86,35 +86,33 @@
 	<div class="tab-pane {{navClassFor 'inspire'}}" id="lA">
 		<div class="nine columns">
 			<h2 style="margin-bottom:1px;">{{title}}</h2>
+			<br>
 		</div>
 		<div class="three columns">
-			<div class="well well-small">
-				<br>
-				<button>BECOME SCHOLAR</button>
-			</div>
 		</div>
 		<br>
 		<hr style="margin:0 0 2px;">
 		<br>
 		<div class="six columns" style="padding-left:0px;">
 			<br>
-			<iframe width="100%" height="300" src="{{videoUrl}}" allowfullscreen
+			<iframe width="100%" height="300" src={{videoUrl}} allowfullscreen
 				style="border: 4px solid #DDD; margin: 0 0 10px; max-width: 100% !important;"></iframe>
 		</div>
 		<br>
 		<div class="six columns">
 			<section class="intro">
-				<h3><small>What is it like to work for as {{title}}?</small></h3>
+				<h3><small>What is it like to work on {{title}}?</small></h3>
 				<p style="font-size:15px;">{{description}}</p>
 			</section>
 		</div>
 		<br>
 		<hr>
-
 		<div class="twelve columns">
-			<h3><small>What skills are required to succeed as {{title}}?</small></h3>
-			<p>{{requirements}}</p>
+			<h3><small>What skills are required to succeed in {{title}}?</small></h3>
+			<p class="well">{{requirements}}</p>
+			<br>
 		</div>	
+		<hr>
 	</div>
 </template>
 
@@ -123,20 +121,14 @@
 		<h4><small>{{title}}</small></h4>
 		<h2>Study Materials</h2>
 		<hr>
-
-		<div class="three columns">
-			<h5>Resources</h5>
-			<ul>
-				<li><p>Material Title</p></li>
-			</ul>
-		</div>
-
-		<div class="nine columns">
+		<br>
+		<div class="twelve columns">
 			<div class="well">
 				{{materialHTML}}
-				<hr>
 			</div>
 		</div>
+		<br>
+		<hr>
 	</div>
 </template>
 
