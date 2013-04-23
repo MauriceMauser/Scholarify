@@ -1,5 +1,7 @@
 Meteor.subscribe("professions");
 
+/////// Helpers ////////
+
 function setProfession (context, page) {
 	var _id = context.params._id;
 	Session.set("profession", Professions.findOne(_id));
@@ -12,6 +14,15 @@ function authorizeAdmin (context, page) {
       context.redirect(Meteor.unauthorizedPath());
     }
 };
+
+Handlebars.registerHelper("navClassFor", function (nav, options) {
+      return Meteor.router.navEquals(nav) ? "active" : "";
+  });
+
+////////////////////////////
+
+
+/////// Router ////////
 
 Meteor.pages({
 
@@ -42,15 +53,20 @@ Meteor.pages({
 
 });
 
-Handlebars.registerHelper("navClassFor", function (nav, options) {
-      return Meteor.router.navEquals(nav) ? "active" : "";
-  });
+////////////////////////////
+
+
+/////// Professions ////////
+
+/////// INDEX ////////
 
 Template.professionsIndex.helpers({
 professions: function () { 
 		return Professions.find();
 		}
 	});
+
+/////// SHOW ////////
 
 Template.professionShow.helpers({
 	profession: function () {
@@ -69,8 +85,45 @@ Template.learn.materialHTML = function () {
     return new Handlebars.SafeString(this.material);
 };
 
+/////// EDIT ////////
+
 Template.learn_backend.rendered = function () {
     (function () {
             $('#redactor_content').redactor({ fixed: true });
         }());
 };
+
+Template.profession_backend.events({
+    'click .save': function (event, template) {
+        var title = template.find("#profession_title").value;
+        var sponsor = template.find("#profession_sponsor").value;
+        var description = template.find("#profession_description").value;
+        var video = template.find("#profession_video").value;
+        var image = template.find("#profession_image").value;
+        var requirements = template.find("#profession_requirements").value;
+        var material = template.find("#redactor_content").value;
+
+        if (title.length && description.length && video.length && image.length && material.length) {
+            Meteor.call('publishProfession', {
+                title: title,
+                sponsor: sponsor,
+                description: description,
+                videoUrl: video,
+                imgUrl: image,
+                requirements: requirements,
+                material: material
+                }, function (error) {
+                    if (! error) { console.log("New profession created."); }
+                }
+            );
+        } else {
+            Session.set("publishError", "A profession requires a title, description, video, image and material.")
+        }
+    }
+});
+
+Template.profession_backend.error = function () {
+    return Session.get("publishError");
+};
+
+////////////////////////////
