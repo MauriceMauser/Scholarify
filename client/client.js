@@ -1,5 +1,7 @@
 Meteor.subscribe("professions");
 
+admin = 'PjpNzed76d7ztJYAg'; //To-Do: SAFE ON SERVER !!
+
 /////// Helpers ////////
 
 function setProfession (context, page) {
@@ -10,7 +12,7 @@ function setProfession (context, page) {
 
 function authorizeAdmin (context, page) {
     var userId = Meteor.userId();
-    if (userId != 'PjpNzed76d7ztJYAg') {
+    if (userId != admin) {
       context.redirect(Meteor.unauthorizedPath());
     }
 };
@@ -75,20 +77,47 @@ Template.professionShow.helpers({
 	});
 
 Template.professionShow.events({
-   'click .editable': function () { Session.set("editing", true);  console.log("clicked"); },
+    //To-Do: DRY edit_description and edit_requirements
+   'click .edit_description': function () { 
+        if (admin == Meteor.userId())
+        {
+            Session.set("editing", 'edit_description');  console.log("edit description");
+        }
+    },
    'focus #profession_description': function () { document.getElementById("profession_description").select(); },
    'blur #profession_description': function (event, template) {
             var description = template.find("#profession_description").value;
-            Meteor.call('updateProfession', this, { description: description }, function (error) {
+            Meteor.call('updateProfession', Session.get("profession"), { description: description }, function (error) {
                     if (! error) { console.log("Profession updated."); }
                 }); 
-            Session.set("editing", false);
+            Session.set("editing");
+        },
+   'click .edit_requirements': function () { 
+        if (admin == Meteor.userId()) 
+        {
+            Session.set("editing", 'edit_requirements');  console.log("edit requirements");
+        }
+    },
+   'focus #profession_requirements': function () { document.getElementById("profession_requirements").select(); },
+   'blur #profession_requirements': function (event, template) {
+            var requirements = template.find("#profession_requirements").value;
+            Meteor.call('updateProfession', Session.get("profession"), { requirements: requirements }, function (error) {
+                    if (! error) { console.log("Profession updated."); }
+                }); 
+            Session.set("editing");
         }
 });
 
-Template.inspire.editing = function () { 
-    return Session.get("editing");     
+Template.inspire.editing_description = function () {
+    if (admin == Meteor.userId())
+        { return Session.equals("editing", 'edit_description'); }
 }; 
+
+Template.inspire.editing_requirements = function () {
+    if (admin == Meteor.userId()) {
+            return Session.equals("editing", 'edit_requirements');  
+        }  
+};
 
 Template.professionPin.truncated_description = function () {
     return this.description.substring(0,120);
