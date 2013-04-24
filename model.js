@@ -47,6 +47,10 @@ Meteor.methods({
 			requirements: options.requirements,
 			material: options.material
 			});
+	},
+	updateProfession: function (profession, options) {
+		options = options || {};
+		return Professions.update(profession, {$set: options});
 	}
 });
 

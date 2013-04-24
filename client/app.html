@@ -101,8 +101,12 @@
 		<br>
 		<div class="six columns">
 			<section class="intro">
-				<h3><small>What is it like to work on {{title}}?</small></h3>
-				<p style="font-size:15px;">{{description}}</p>
+				<h3><small>What is it like to work on {{title}}?</small></h3>			
+				{{#if editing}}
+				    <textarea id="profession_description" autofocus="autofocus"  style="width:100%;height:250px;">{{description}}</textarea>
+				{{else}}
+					<p class="editable" style="font-size:15px;">{{description}}</p>
+				{{/if}}
 			</section>
 		</div>
 		<br>
@@ -255,7 +259,7 @@
 
 <template name="learn_backend">
 	<h4>Study Materials</h4>
-	<textarea id="redactor_content" name="content"> </textarea>
+	<textarea id="redactor_content" name="content"></textarea>
 </template>
 
 <template name="proof_backend">

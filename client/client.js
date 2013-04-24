@@ -19,6 +19,7 @@ Handlebars.registerHelper("navClassFor", function (nav, options) {
       return Meteor.router.navEquals(nav) ? "active" : "";
   });
 
+
 ////////////////////////////
 
 
@@ -30,15 +31,11 @@ Meteor.pages({
 
     '/': { to: 'professionsIndex', as: 'root' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
-    '/professions/new': { to: 'profession_backend', as: 'new_profession' },
+    '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin },
     '/profession/:_id': { to: 'professionShow', as: 'profession', before: setProfession, nav: 'inspire' },
     '/profession/:_id/inspire': { to: 'professionShow', before: setProfession, nav: 'inspire' },
     '/profession/:_id/learn': { to: 'professionShow', before: setProfession, nav: 'learn' },
     '/profession/:_id/proof': { to: 'professionShow', before: setProfession, nav: 'proof' },
-    '/profession/:id/edit': { to: 'profession_backend', before: [setProfession, authorizeAdmin], nav: 'inspire_backend' },
-    '/profession/:id/edit/inspire': { to: 'profession_backend', before: [setProfession, authorizeAdmin], nav: 'inspire_backend' },
-    '/profession/:id/edit/learn': { to: 'profession_backend', before: [setProfession, authorizeAdmin], nav: 'learn_backend' },
-    '/profession/:id/edit/proof': { to: 'profession_backend', before: [setProfession, authorizeAdmin], nav: 'proof_backend' },
     '/about': { to: 'about', as: 'about' },
     '/contact': { to: 'contact', as: 'contact' },
     '/401': { to: 'unauthorized'},
@@ -74,8 +71,24 @@ Template.professionShow.helpers({
 		},
     profession_tab: function () {
         return Meteor.router 
-    }
+        }
 	});
+
+Template.professionShow.events({
+   'click .editable': function () { Session.set("editing", true);  console.log("clicked"); },
+   'focus #profession_description': function () { document.getElementById("profession_description").select(); },
+   'blur #profession_description': function (event, template) {
+            var description = template.find("#profession_description").value;
+            Meteor.call('updateProfession', this, { description: description }, function (error) {
+                    if (! error) { console.log("Profession updated."); }
+                }); 
+            Session.set("editing", false);
+        }
+});
+
+Template.inspire.editing = function () { 
+    return Session.get("editing");     
+}; 
 
 Template.professionPin.truncated_description = function () {
     return this.description.substring(0,120);
@@ -121,6 +134,7 @@ Template.profession_backend.events({
         }
     }
 });
+
 
 Template.profession_backend.error = function () {
     return Session.get("publishError");
