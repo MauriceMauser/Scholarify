@@ -85,7 +85,11 @@
 <template name="inspire">
 	<div class="tab-pane {{navClassFor 'inspire'}}" id="lA">
 		<div class="nine columns">
-			<h2 style="margin-bottom:1px;">{{title}}</h2>
+			{{#if editing 'title'}}
+			    <input id="title" class="edit" autofocus="autofocus" type="text"  style="width:100%;" value="{{title}}" />
+			{{else}}
+				<h2 class="editable" id="title" style="margin-bottom:1px;">{{title}}</h2>
+			{{/if}}
 			<br>
 		</div>
 		<div class="three columns">

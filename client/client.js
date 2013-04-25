@@ -90,7 +90,7 @@ Template.professionShow.events({
     'click .editable': function (event) { 
         var target = event.target.id || window.event.srcElement.id //IE
         if (isAdmin)
-            { Session.set("editing", target);  console.log("edit" + target); }
+            { Session.set("editing", target);  console.log("edit " + target); }
         },
    'focus .edit': function (event, template) { 
         var target = event.target.id || window.event.srcElement.id //IE
@@ -98,8 +98,10 @@ Template.professionShow.events({
         },
    'blur .edit': function (event, template) {
         var target = event.target.id || window.event.srcElement.id //IE
-        var val = template.find(target).value;
-        Meteor.call('updateProfession', Session.get("profession"), { target: val }, function (error) {
+        var val = document.getElementById(target).value;
+        var options = {};
+        options[target] = val;
+        Meteor.call('updateProfession', Session.get("profession"), options, function (error) {
                 if (! error) { console.log("Profession updated."); }
             }); 
         Session.set("editing");
@@ -108,7 +110,6 @@ Template.professionShow.events({
 });
 
 Template.inspire.editing = function (field) {
-    var userId = Meteor.userId();
     if (isAdmin)
         { return Session.equals("editing", field); }   
 };
