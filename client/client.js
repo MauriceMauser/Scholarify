@@ -5,6 +5,7 @@ Deps.autorun( function () {
     userId = Meteor.userId();
     current_user = Meteor.users.findOne({_id: userId});
     isAdmin = (current_user && current_user.isAdmin) || false;
+    Session.set("admin", isAdmin);
     console.log(current_user);
     return
     }
@@ -20,8 +21,7 @@ function setProfession (context, page) {
 
 
 function authorizeAdmin (context, page) {
-   
-    if (! isAdmin) {
+    if (Session.get("admin") === false) {
       context.redirect(Meteor.unauthorizedPath());
     }
 };
@@ -43,6 +43,7 @@ Meteor.pages({
     '/': { to: 'professionsIndex', as: 'root' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
     '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin },
+    '/professions/admin': { to: 'admin_index', before: authorizeAdmin },
     '/profession/:_id': { to: 'professionShow', as: 'profession', before: setProfession, nav: 'inspire' },
     '/profession/:_id/inspire': { to: 'professionShow', before: setProfession, nav: 'inspire' },
     '/profession/:_id/learn': { to: 'professionShow', before: setProfession, nav: 'learn' },

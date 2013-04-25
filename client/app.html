@@ -275,6 +275,50 @@
 </template>
 
 
+<!-- /////// ADMIN PROFESSIONS INDEX /////// -->
+
+<template name="admin_index">
+	<div class="container">
+		<div class="row">
+			<div class="card" style="min-height:900px;">
+				<h2>Our Professions</h2>
+				<hr>
+				{{#each professions}}
+					{{> profession_item }}		
+				{{/each}}
+				<div class="well well-large">
+				<br />
+				<a href="{{new_professionPath}}" class="btn btn-large btn-block btn-info" style="font-weight:bold;">Create Course</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="profession_item">
+	{{#with profession}}
+	<div class="well">
+		<div class="row">
+			<div class="six columns">
+				<div class="main img"><img src={{imgUrl}}></div>
+			</div>
+			<div class="six columns">
+				<h4 style="margin-top:0px;margin-bottom:2px;">{{title}}</h4>
+				<h4 style="margin-top:0px;">
+					<small>{{sponsor}}</small> 
+				</h4>
+				<p>{{description}}</p>
+				<td><a href="{{professionPath}}">Create Course</a></td>
+			</div>
+		</div>
+	</div>
+	{{/with}}
+</template>
+
+
+<!-- ///////////////////////////////////// -->
+
+
 <!-- ////// STATIC ////// -->
 <template name="about">
 	<div class="well">
