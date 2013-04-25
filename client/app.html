@@ -102,10 +102,10 @@
 		<div class="six columns">
 			<section class="intro">
 				<h3><small>What is it like to work on {{title}}?</small></h3>			
-				{{#if editing_description}}
-				    <textarea id="profession_description" autofocus="autofocus"  style="width:100%;height:250px;">{{description}}</textarea>
+				{{#if editing 'description'}}
+				    <textarea id="description" class="edit" autofocus="autofocus"  style="width:100%;height:250px;">{{description}}</textarea>
 				{{else}}
-					<p class="edit_description" style="font-size:15px;">{{description}}</p>
+					<p class="editable" id="description" style="font-size:15px;">{{description}}</p>
 				{{/if}}
 			</section>
 		</div>
@@ -113,10 +113,10 @@
 		<hr>
 		<div class="twelve columns">
 			<h3><small>What skills are required to succeed in {{title}}?</small></h3>
-			{{#if editing_requirements}}
-				<textarea id="profession_requirements" autofocus="autofocus"  style="width:100%;height:250px;">{{requirements}}</textarea>
+			{{#if editing 'requirements'}}
+				<textarea id="requirements" class="edit" autofocus="autofocus"  style="width:100%;height:250px;">{{requirements}}</textarea>
 			{{else}}
-				<p class="well edit_requirements">{{requirements}}</p>
+				<p class="well editable" id="requirements">{{requirements}}</p>
 			{{/if}}
 			<br>
 		</div>	

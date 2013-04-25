@@ -1,8 +1,17 @@
 Meteor.subscribe("professions");
 
-admin = 'PjpNzed76d7ztJYAg'; //To-Do: SAFE ON SERVER !!
+Deps.autorun( function () {
+    Meteor.subscribe("userData");
+    userId = Meteor.userId();
+    current_user = Meteor.users.findOne({_id: userId});
+    isAdmin = (current_user && current_user.isAdmin) || false;
+    console.log(current_user);
+    return
+    }
+);
 
 /////// Helpers ////////
+
 
 function setProfession (context, page) {
 	var _id = context.params._id;
@@ -11,8 +20,8 @@ function setProfession (context, page) {
 
 
 function authorizeAdmin (context, page) {
-    var userId = Meteor.userId();
-    if (userId != admin) {
+   
+    if (! isAdmin) {
       context.redirect(Meteor.unauthorizedPath());
     }
 };
@@ -78,8 +87,10 @@ Template.professionShow.helpers({
 
 Template.professionShow.events({
     //To-Do: DRY edit_description and edit_requirements
-   'click .edit_description': function () { 
-        if (admin == Meteor.userId())
+   
+   /*'click .edit_description': function () { 
+        var userId = Meteor.userId();
+        if (isAdmin)
         {
             Session.set("editing", 'edit_description');  console.log("edit description");
         }
@@ -93,7 +104,8 @@ Template.professionShow.events({
             Session.set("editing");
         },
    'click .edit_requirements': function () { 
-        if (admin == Meteor.userId()) 
+        var userId = Meteor.userId();
+        if (isAdmin) 
         {
             Session.set("editing", 'edit_requirements');  console.log("edit requirements");
         }
@@ -105,18 +117,47 @@ Template.professionShow.events({
                     if (! error) { console.log("Profession updated."); }
                 }); 
             Session.set("editing");
+        } */
+
+
+    'click .editable': function (event) { 
+        var target = event.target.id || window.event.srcElement.id //IE
+        if (isAdmin)
+            { Session.set("editing", target);  console.log("edit" + target); }
+        },
+   'focus .edit': function (event, template) { 
+        var target = event.target.id || window.event.srcElement.id //IE
+        document.getElementById(target).select(); 
+        },
+   'blur .edit': function (event, template) {
+        var target = event.target.id || window.event.srcElement.id //IE
+        var val = template.find(target).value;
+        Meteor.call('updateProfession', Session.get("profession"), { target: val }, function (error) {
+                if (! error) { console.log("Profession updated."); }
+            }); 
+        Session.set("editing");
         }
+
 });
 
-Template.inspire.editing_description = function () {
-    if (admin == Meteor.userId())
+/*Template.inspire.editing_description = function () {
+    var userId = Meteor.userId();
+    if (isAdmin) 
         { return Session.equals("editing", 'edit_description'); }
 }; 
 
 Template.inspire.editing_requirements = function () {
-    if (admin == Meteor.userId()) {
+    var userId = Meteor.userId();
+    if (isAdmin)
+        {
             return Session.equals("editing", 'edit_requirements');  
         }  
+};*/
+
+Template.inspire.editing = function (field) {
+    var userId = Meteor.userId();
+    if (isAdmin)
+        { return Session.equals("editing", field); }   
 };
 
 Template.professionPin.truncated_description = function () {

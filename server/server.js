@@ -1,5 +1,8 @@
+adminId = "TD6fZsJnH9uMZL7Ld";
+
 Meteor.startup(function() {
-	admin = 'PjpNzed76d7ztJYAg';
+	Meteor.users.update({_id: adminId},
+                           {$set: {isAdmin: true} });
 
 	if (Professions.find().count() > 0) return;
 
@@ -17,4 +20,9 @@ Meteor.startup(function() {
 
 Meteor.publish("professions", function() {
 	return Professions.find();
+});
+
+Meteor.publish("userData", function () {
+  return Meteor.users.find({_id: this.userId},
+                           {fields: {'isAdmin': 1}});
 });
