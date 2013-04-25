@@ -86,40 +86,7 @@ Template.professionShow.helpers({
 	});
 
 Template.professionShow.events({
-    //To-Do: DRY edit_description and edit_requirements
    
-   /*'click .edit_description': function () { 
-        var userId = Meteor.userId();
-        if (isAdmin)
-        {
-            Session.set("editing", 'edit_description');  console.log("edit description");
-        }
-    },
-   'focus #profession_description': function () { document.getElementById("profession_description").select(); },
-   'blur #profession_description': function (event, template) {
-            var description = template.find("#profession_description").value;
-            Meteor.call('updateProfession', Session.get("profession"), { description: description }, function (error) {
-                    if (! error) { console.log("Profession updated."); }
-                }); 
-            Session.set("editing");
-        },
-   'click .edit_requirements': function () { 
-        var userId = Meteor.userId();
-        if (isAdmin) 
-        {
-            Session.set("editing", 'edit_requirements');  console.log("edit requirements");
-        }
-    },
-   'focus #profession_requirements': function () { document.getElementById("profession_requirements").select(); },
-   'blur #profession_requirements': function (event, template) {
-            var requirements = template.find("#profession_requirements").value;
-            Meteor.call('updateProfession', Session.get("profession"), { requirements: requirements }, function (error) {
-                    if (! error) { console.log("Profession updated."); }
-                }); 
-            Session.set("editing");
-        } */
-
-
     'click .editable': function (event) { 
         var target = event.target.id || window.event.srcElement.id //IE
         if (isAdmin)
@@ -139,20 +106,6 @@ Template.professionShow.events({
         }
 
 });
-
-/*Template.inspire.editing_description = function () {
-    var userId = Meteor.userId();
-    if (isAdmin) 
-        { return Session.equals("editing", 'edit_description'); }
-}; 
-
-Template.inspire.editing_requirements = function () {
-    var userId = Meteor.userId();
-    if (isAdmin)
-        {
-            return Session.equals("editing", 'edit_requirements');  
-        }  
-};*/
 
 Template.inspire.editing = function (field) {
     var userId = Meteor.userId();
