@@ -26,6 +26,10 @@ function authorizeAdmin (context, page) {
     }
 };
 
+function generateId () {
+    return '_' + Math.random().toString(36).substr(2, 9);
+};
+
 Handlebars.registerHelper("navClassFor", function (nav, options) {
       return Meteor.router.navEquals(nav) ? "active" : "";
   });
@@ -43,7 +47,7 @@ Meteor.pages({
     '/': { to: 'professionsIndex', as: 'root' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
     '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin },
-    '/professions/admin': { to: 'admin_index', before: authorizeAdmin },
+    '/professions/admin': { to: 'adminIndex', before: authorizeAdmin },
     '/profession/:_id': { to: 'professionShow', as: 'profession', before: setProfession, nav: 'inspire' },
     '/profession/:_id/inspire': { to: 'professionShow', before: setProfession, nav: 'inspire' },
     '/profession/:_id/learn': { to: 'professionShow', before: setProfession, nav: 'learn' },
@@ -140,6 +144,7 @@ Template.profession_backend.events({
         var image = template.find("#profession_image").value;
         var requirements = template.find("#profession_requirements").value;
         var material = template.find("#redactor_content").value;
+        var specs = Session.get('specs');
 
         if (title.length && description.length && video.length && image.length && material.length) {
             Meteor.call('publishProfession', {
@@ -149,9 +154,10 @@ Template.profession_backend.events({
                 videoUrl: video,
                 imgUrl: image,
                 requirements: requirements,
-                material: material
+                material: material,
+                specs: specs
                 }, function (error) {
-                    if (! error) { console.log("New profession created."); }
+                    if (! error) { console.log("New profession created."); Session.set('specs', {}); }
                 }
             );
         } else {
@@ -165,4 +171,63 @@ Template.profession_backend.error = function () {
     return Session.get("publishError");
 };
 
-////////////////////////////
+////////// ADMIN ////////////
+
+Template.adminIndex.helpers({
+    professions: function () { 
+        return Professions.find();
+        }
+    });
+
+Template.adminIndex.events({
+    'click .delete': function () {
+        Meteor.call('deleteProfession', this._id, function (error) { if (!error) { console.log("Profession deleted."); } });
+    }
+    });
+
+
+////////////////////////////////////////////////////////
+
+
+////// Masterpieces ////////////////////////////////////
+
+////////// NEW /////////////
+
+
+
+Template.new_specs.helpers({
+    specs: function () {
+        var id1 = generateId();
+        var id2 = generateId();
+        var specs = [{ _id: id1, name: "First specification.", description: "Insert description." }, { _id: id2, name: "Second specification.", description: "Insert description." }];
+        return Session.get('specs') || Session.set('specs', specs) ;
+        }
+    });
+
+Template.new_specs.events({
+    'click .delete': function (event, template) {
+        var target = event.target.id || window.event.srcElement.id //IE
+        var specs = Session.get('specs') || [];
+        if (isAdmin) {
+            for (var i = 0; i < specs.length; ++i) {
+                if (specs[i]._id == target) { specs.splice(i, 1) ; }
+            };
+        } ;
+        Session.set('specs', specs);
+    },
+    'click .add': function () {
+        var specs = Session.get('specs') || [{}];
+        var id = generateId();
+        specs.push({_id: id, name: 'Insert name.', description: 'Insert description.'});
+        Session.set('specs', specs);
+    }
+});
+
+
+Template.new_spec.spec = function () {
+    return Session.get('specs');
+};
+
+
+////////////////////////////////////////////////////////
+

@@ -1,0 +1,44 @@
+<!-- ////////// MASTERPIECE ///////////// -->
+
+<template name="masterpiece"> 
+	<!--{{#with specification}} 
+		{{#each spec_fields}}
+	  		{{> spec_field}}
+	  	{{/each}}
+	  <p>{{spec_text}}</p>
+	  <hr style="border: solid #fff;">
+	{{/with}} 
+</template>
+
+<template name="spec_field"> 
+	<div class="well">
+		<input id="spec_name" type="text" />
+
+	
+	</div> -->
+</template>
+
+<!-- ///////////////////////////////// -->
+
+<!-- ////////// MASTERPIECE BACKEND ///////////// -->
+
+<template name="new_specs"> 
+	{{#each specs }}
+		{{> new_spec }}
+	{{/each}}
+	 <a href="" class="btn btn-success add" id="add_spec">Add Specification</a>
+</template>
+
+<template name="new_spec">
+	<h4>Requirements Specification</h4>
+	<div class="twelve columns">
+	   <label for="name">Name</label><input id="name" type="text" value="{{name}}" />
+	   <label for="description">Description</label><textarea id="description" style="width: 100%; height:250px;">{{description}}</textarea>
+	   <br />	
+	   <a href="" class="btn btn-succes delete" id="{{_id}}">Remove Field</a>
+	</div>
+	<hr> 
+</template>
+
+
+<!-- ///////////////////////////////// -->
