@@ -1,4 +1,5 @@
 Meteor.subscribe("professions");
+Meteor.subscribe("masterpieces");
 
 Deps.autorun( function () {
     Meteor.subscribe("userData");
@@ -192,9 +193,8 @@ Template.adminIndex.events({
 ////// Masterpieces ////////////////////////////////////
 
 ////////// NEW /////////////
-
-
-
+ 
+////////// specification /////////////
 Template.new_specs.helpers({
     specs: function () {
         var id1 = generateId();
@@ -227,6 +227,39 @@ Template.new_specs.events({
 Template.new_spec.spec = function () {
     return Session.get('specs');
 };
+
+////////// masterpiece /////////////
+
+Template.masterpiece.helpers({
+    specification: function () {
+        var profession = Session.get('profession');
+        var specs = profession['specs'] || [];
+        return specs ;
+    }
+});
+
+Template.masterpiece.events({
+    'click .submit': function (event, template) {
+        event.preventDefault();
+        var profession = Session.get('profession');        
+        var specs = profession['specs'];
+        var project = {};
+        for (var i = 0; i < specs.length; ++i) {
+            var spec = specs[i];
+            var submission = template.find("#" + spec._id).value;
+            spec['submission'] = submission;
+            project[i] = spec;
+        };
+        var userId = Session.get('userId') || Meteor.userId ();
+        if (userId) {
+            project['professionId'] = profession._id;
+            Meteor.call('submitMasterpiece', project, function (error) {
+                    if (! error) { console.log("Masterpiece submitted."); }
+                }
+            );
+        } 
+    }
+});
 
 
 ////////////////////////////////////////////////////////

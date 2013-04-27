@@ -1,21 +1,24 @@
 <!-- ////////// MASTERPIECE ///////////// -->
 
 <template name="masterpiece"> 
-	<!--{{#with specification}} 
-		{{#each spec_fields}}
-	  		{{> spec_field}}
-	  	{{/each}}
-	  <p>{{spec_text}}</p>
-	  <hr style="border: solid #fff;">
-	{{/with}} 
+	<h2>Your Masterpiece</h2>
+	<p>Please elaborate how your masterpiece meets the following specifications.</p>
+  	<hr>
+	<br>
+	{{#each specification}}
+  		{{> spec_field}}
+  	{{/each}}
+  	<hr>
+  	<br>
+  	<a href="" class="well well-large btn btn-large btn-block btn-success submit" id="submit">Submit Project</a>
 </template>
 
 <template name="spec_field"> 
 	<div class="well">
-		<input id="spec_name" type="text" />
-
-	
-	</div> -->
+		<h4>{{name}}</h4>
+		<p>{{description}}</p>
+		<input class="submission" id="{{_id}}" type="text" />	
+	</div>
 </template>
 
 <!-- ///////////////////////////////// -->

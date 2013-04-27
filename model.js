@@ -16,11 +16,30 @@ Professions.allow({
 
 ////////////////////////////
 
+/////// Masterpieces ////////
+
+Masterpieces = new Meteor.Collection("masterpieces");
+
+Masterpieces.allow({
+	insert: function (userId, masterpiece) {
+		return false; //no cowboy insert -- use publishProfession method
+	},
+	update:  function (userId, masterpiece) {
+		return userId && masterpiece.owner === userId; 
+	},
+	remove: function (userId, masterpiece) {
+		return userId && masterpiece.owner === userId; 
+	}
+});
+
+////////////////////////////
+
 /////// Methods ////////
 
 Meteor.methods({
+	//Professions
 	publishProfession: function (options) {
-		options = options || {};
+		var options = options || {};
 		if (! (typeof options.title === "string" && options.title.length && 
 			   typeof options.description === "string" && options.description.length &&
 			   typeof options.videoUrl === "string" && options.videoUrl.length &&
@@ -56,6 +75,16 @@ Meteor.methods({
 	},
 	deleteProfession: function (profession) {
 		return Professions.remove(profession);
+	},
+	//Masterpieces
+	submitMasterpiece: function (options) {
+		var project = options || {};
+		if (! this.userId)
+			{ throw new Meteor.error(403, "You must be logged in"); }
+		else { 
+				project['owner'] = this.userId;
+		 	 }
+		return Masterpieces.insert(project);
 	}
 });
 

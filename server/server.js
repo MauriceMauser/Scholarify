@@ -18,8 +18,14 @@ Meteor.startup(function() {
 	}
 });
 
+//// PROFESSIONS ////
 Meteor.publish("professions", function() {
 	return Professions.find();
+});
+
+//// MASTERPIECES ////
+Meteor.publish("masterpieces", function() {
+	return Masterpieces.find();
 });
 
 //// USERS ////
