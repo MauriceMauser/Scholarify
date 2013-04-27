@@ -243,17 +243,19 @@ Template.masterpiece.events({
         event.preventDefault();
         var profession = Session.get('profession');        
         var specs = profession['specs'];
-        var project = {};
+        var masterpiece = {};
+        var chapters = [];
         for (var i = 0; i < specs.length; ++i) {
             var spec = specs[i];
             var submission = template.find("#" + spec._id).value;
             spec['submission'] = submission;
-            project[i] = spec;
+            chapters.push(spec);
         };
+        masterpiece['chapters'] = chapters;
         var userId = Session.get('userId') || Meteor.userId ();
         if (userId) {
-            project['professionId'] = profession._id;
-            Meteor.call('submitMasterpiece', project, function (error) {
+            masterpiece['professionId'] = profession._id;
+            Meteor.call('submitMasterpiece', masterpiece, function (error) {
                     if (! error) { console.log("Masterpiece submitted."); }
                 }
             );
