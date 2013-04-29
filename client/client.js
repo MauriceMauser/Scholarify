@@ -3,9 +3,11 @@ Meteor.subscribe("masterpieces");
 
 Deps.autorun( function () {
     Meteor.subscribe("userData");
-    userId = Meteor.userId();
-    current_user = Meteor.users.findOne({_id: userId});
-    isAdmin = (current_user && current_user.isAdmin) || false;
+    var userId = Meteor.userId();
+    Session.set("userId", userId);
+    var current_user = Meteor.user();
+    Session.set("current_user", current_user);
+    isAdmin = current_user && current_user.isAdmin;
     Session.set("admin", isAdmin);
     console.log(current_user);
     return
@@ -14,17 +16,25 @@ Deps.autorun( function () {
 
 /////// Helpers ////////
 
-
-function setProfession (context, page) {
-	var _id = context.params._id;
-	Session.set("profession", Professions.findOne(_id));
-};
-
-
 function authorizeAdmin (context, page) {
-    if (Session.get("admin") === false) {
+    var admin = Session.get("admin");
+    if (admin === false) {
       context.redirect(Meteor.unauthorizedPath());
     }
+};
+
+function setProfile (context, page) {
+    var _id = context.params._id;
+    var profile = Meteor.users.findOne(_id);
+    Session.set("profile", profile);
+    var current_user = Session.get("current_user");
+    var isOwner = (profile === current_user) ? true : false;
+    Session.set("isOwner", isOwner); 
+};
+
+function setProfession (context, page) {
+    var _id = context.params._id;
+    Session.set("profession", Professions.findOne(_id));
 };
 
 function generateId () {
@@ -46,6 +56,7 @@ Meteor.pages({
 	// Page values can be an object of options, a function or a template name string
 
     '/': { to: 'professionsIndex', as: 'root' },
+    '/profile/:_id': { to: 'profile', as: 'user', before: setProfile },
     '/professions': { to: 'professionsIndex', as: 'professions' },
     '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin },
     '/professions/admin': { to: 'adminIndex', before: authorizeAdmin },
@@ -66,6 +77,47 @@ Meteor.pages({
     }
 
 });
+
+////////////////////////////
+
+
+/////// Users ///////////////
+
+Template.profile.helpers({
+    user: function () { 
+        return Session.get("profile");  
+    } 
+});
+
+Template.profile.events({
+   
+    'click .editable': function (event) { 
+        var target = event.target.id || window.event.srcElement.id //IE
+        if (isOwner)
+            { Session.set("editing", target);  console.log("edit " + target); }
+        },
+   'focus .edit': function (event, template) { 
+        var target = event.target.id || window.event.srcElement.id //IE
+        document.getElementById(target).select(); 
+        },
+   'blur .edit': function (event, template) {
+        var target = event.target.id || window.event.srcElement.id //IE
+        var val = document.getElementById(target).value;
+        var options = {};
+        options[target] = val;
+        Meteor.call('setUserData', Session.get("current_user"), options, function (error) {
+                if (! error) { console.log("User data updated."); }
+            }); 
+        Session.set("editing");
+        }
+
+});
+
+Template.user_info.editing = function (field) {
+    if (isOwner)
+        { return Session.equals("editing", field); }   
+};
+
 
 ////////////////////////////
 
@@ -240,7 +292,6 @@ Template.masterpiece.helpers({
 
 Template.masterpiece.events({
     'click .submit': function (event, template) {
-        event.preventDefault();
         var profession = Session.get('profession');        
         var specs = profession['specs'];
         var masterpiece = {};
@@ -256,7 +307,9 @@ Template.masterpiece.events({
         if (userId) {
             masterpiece['professionId'] = profession._id;
             Meteor.call('submitMasterpiece', masterpiece, function (error) {
-                    if (! error) { console.log("Masterpiece submitted."); }
+                    if (! error) { 
+                        console.log("Masterpiece submitted.");
+                        }
                 }
             );
         } 

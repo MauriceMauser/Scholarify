@@ -1,0 +1,70 @@
+<!-- ////// USER PROFILE ////// -->
+
+<template name="profile">
+	{{#with user }}
+	<div class="container">
+	    <div class="card" style="min-height:700px;">
+	    	<div class="tabbable">
+				<ul class="nav nav-tabs">
+					<li class="{{navClassFor 'user_info'}}"><a href="#tab1" data-toggle="tab"> 	Personal Information </a></li>
+					<li class="{{navClassFor 'my_masterpieces'}}"><a href="#tab2" data-toggle="tab"> My Masterpieces </a></li>
+					<li class="{{navClassFor 'my_reviews'}}"><a href="#tab3" data-toggle="tab">	My Reviews </a></li>
+				</ul>
+				<div class="tab-content">
+					{{> user_info }}
+					{{> my_masterpieces }}
+					{{> my_reviews }}
+				</div> 
+			</div>   
+	    </div>
+	</div>
+	{{/with}}
+</template>
+
+<template name="user_info">
+	<div class="tab-pane {{navClassFor 'user_info'}}" id="tab1">
+		<div class="row">
+          <div class="three columns">
+      		<img src="{{imageUrl}}">
+          </div>
+          <div class="nine columns">
+            <div class="row">
+              <h5>{{name}}</h5>
+				{{#if editing 'name'}}
+				    <input id="name" class="edit" autofocus="autofocus" type="text"  style="width:100%;" value="{{name}}" />
+				{{else}}
+					<h5 class="editable" id="edit">{{name}}</h5>
+				{{/if}}
+              <hr>
+            </div>
+            <div class="row">
+              <div class="two columns"><b>Email</b></div><div class="seven columns"><p>{{email}}</p></div>
+            </div>
+            <div class="row">
+              <div class="two columns"><b>Location</b></div><div class="seven columns"><p>{{location}}</p></div>
+            </div>
+            <hr>
+            <h5>Education</h5>
+            <p>{{education}}</p>
+            <hr>
+            <h5>Experience</h5>
+            <p>{{experience}}</p>
+            <hr>
+          </div>
+    	</div>
+	</div>
+</template>
+
+<template name="my_masterpieces">
+	<div class="tab-pane {{navClassFor 'my_masterpieces'}}" id="tab2">
+		<p>MY MASTERPIECES</p>
+	</div>
+</template>
+
+<template name="my_reviews">
+	<div class="tab-pane {{navClassFor 'my_reviews'}}" id="tab3">
+		<p>MY REVIEWS</p>
+	</div>
+</template>
+
+<!-- ///////////////////////// -->
