@@ -21,6 +21,39 @@
 	</div>
 </template>
 
+<!-- ////////// INDEX ///////////// -->
+
+<template name="masterpieceIndex0">
+	{{#with profession}}
+		<p>TEST MPI</p>
+	{{/with}}
+</template>
+
+<template name ="masterpieceIndex">
+	{{#with profession}}
+	<div class="container">
+		<div class="row">
+			<div class="card"  style="min-height:700px;">
+				<h1>Masterpieces <small>of {{title}}</small></h1>
+				<hr>
+			  	<div>
+	          		{{#each masterpieces}}
+	          			<div class="nine columns">
+	          				{{> my_masterpiece}}
+	          			</div>
+	          			<div class="three columns">
+	          				<div class="btn">
+	          					{{{newReviewLink 'Review Masterpiece' this._id}}}
+	          				</div>
+	          			</div>		          			
+	          		{{/each}}
+	          	</div>
+	        </div>
+		</div>
+	</div>
+	{{/with}}
+</template>
+
 <!-- ///////////////////////////////// -->
 
 <!-- ////////// MASTERPIECE BACKEND ///////////// -->
@@ -42,6 +75,5 @@
 	</div>
 	<hr> 
 </template>
-
 
 <!-- ///////////////////////////////// -->

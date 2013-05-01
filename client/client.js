@@ -35,6 +35,11 @@ function setProfession (context, page) {
     Session.set("profession", Professions.findOne(_id));
 };
 
+function setMasterpiece (context, page) {
+    var _id = context.params._id;
+    Session.set("masterpiece", Masterpieces.findOne(_id));
+};
+
 function generateId () {
     return '_' + Math.random().toString(36).substr(2, 9);
 };
@@ -43,6 +48,11 @@ Handlebars.registerHelper("navClassFor", function (nav, options) {
     return Meteor.router.navEquals(nav) ? "active" : "";
   });
 
+Handlebars.registerHelper('newReviewLink', function(text, _id) {
+  return new Handlebars.SafeString(
+    "<a href='/masterpieces/" + _id + "/review'>" + text + "</a>"
+  );
+});
 
 ////////////////////////////
 
@@ -62,6 +72,8 @@ Meteor.pages({
     '/profession/:_id/inspire': { to: 'professionShow', before: setProfession, nav: 'inspire' },
     '/profession/:_id/learn': { to: 'professionShow', before: setProfession, nav: 'learn' },
     '/profession/:_id/proof': { to: 'professionShow', before: setProfession, nav: 'proof' },
+    '/profession/:_id/masterpieces': { to: 'masterpieceIndex', before: setProfession, as: 'masterpieces' },
+    '/masterpieces/:_id/review': { to: 'new_review', before: setMasterpiece, as: 'newReview'},
     '/about': { to: 'about', as: 'about' },
     '/contact': { to: 'contact', as: 'contact' },
     '/401': { to: 'unauthorized'},
@@ -345,6 +357,30 @@ Template.my_masterpiece.helpers({
         var professionId = professionId;
         var profession = Professions.findOne({_id: professionId});
         return profession && profession.title;
+    }
+});
+
+////////// INDEX /////////////
+
+Template.masterpieceIndex.helpers({
+    profession: function () {
+        return Session.get("profession");
+    },
+    masterpieces: function () {
+        var profession = Session.get("profession");
+        var professionId = profession && profession._id;
+        return Masterpieces.find({professionId: professionId});
+    }
+});
+
+////////////////////////////////////////////////////////
+
+////// Reviews ////////////////////////////////////////
+
+Template.new_review.helpers({
+    chapters: function () {
+        var masterpiece = Session.get("masterpiece");
+        return masterpiece && masterpiece.chapters
     }
 });
 

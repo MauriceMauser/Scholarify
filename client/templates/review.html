@@ -1,0 +1,40 @@
+<template name="new_review">
+	<div class="container">
+		<div class="row">
+			<div class="card" style="min-height:700px;">
+				<h2>Review Masterpiece</h2>
+				<hr>
+				<div class="twelve columns well">
+				{{#each chapters}}
+					{{> chapter_review }}
+  				{{/each}}
+				<hr>
+				</div>
+				<hr style="border: solid #fff;">
+				<div class="actions">
+				    <div class="well well-large"><button class="btn btn-large btn-block btn-success submit">Submit Review</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="chapter_review">				    
+  	<div class="twelve columns well">
+    	<div class="six columns">
+	    	<h5>
+	      		{{name}}
+	    	</h5>
+	    	<p>
+	    		{{description}}
+	    	</p>
+	    	<hr>
+	    	<p>
+	    		{{submission}}
+	    	</p>
+    	</div>
+    	<div class="six columns">
+		      <textarea id="{{_id}}" class="review"></textarea>
+     	</div> 
+  	</div>
+</template>
