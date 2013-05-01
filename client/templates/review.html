@@ -4,16 +4,13 @@
 			<div class="card" style="min-height:700px;">
 				<h2>Review Masterpiece</h2>
 				<hr>
-				<div class="twelve columns well">
+				<div class="twelve columns">
 				{{#each chapters}}
 					{{> chapter_review }}
   				{{/each}}
 				<hr>
 				</div>
-				<hr style="border: solid #fff;">
-				<div class="actions">
-				    <div class="well well-large"><button class="btn btn-large btn-block btn-success submit">Submit Review</button></div>
-				</div>
+				<button class="btn btn-large btn-block btn-success submit">Submit Review</button>
 			</div>
 		</div>
 	</div>
@@ -21,7 +18,7 @@
 
 <template name="chapter_review">				    
   	<div class="twelve columns well">
-    	<div class="six columns">
+    	<div class="five columns">
 	    	<h5>
 	      		{{name}}
 	    	</h5>
@@ -33,8 +30,28 @@
 	    		{{submission}}
 	    	</p>
     	</div>
-    	<div class="six columns">
-		      <textarea id="{{_id}}" class="review"></textarea>
+    	<div class="seven columns">
+    		<h5>Your Feedback:</h5>
+    		<p>Does the project meet the specification: <b>{{name}}</b>?</p>    		
+		      <textarea id="{{_id}}" class="review" style="width:100%;"></textarea>
+		    <hr>
+		    <div class="row">
+		    	<span class="four columns"><h5>Your Score: </h5></span>
+			    <span class="three columns">
+			    	<div class="btn-group">
+						<button class="btn dropdown-toggle btn-block btn-info" data-toggle="dropdown">
+							<span>Your Score</span>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li id="1">Fail</li>
+							<li id="2">Sufficient</li>
+							<li id="3">Good</li>
+							<li id="4">Excellent</li>
+						</ul>	
+					</div>
+				</span>
+			</div>
      	</div> 
   	</div>
 </template>

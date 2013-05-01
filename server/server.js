@@ -28,6 +28,11 @@ Meteor.publish("masterpieces", function() {
 	return Masterpieces.find();
 });
 
+//// REVIEWS ////
+Meteor.publish("reviews", function() {
+	return Reviews.find();
+});
+
 //// USERS ////
 Meteor.publish("userData", function () {
   return Meteor.users.find({_id: this.userId},

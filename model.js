@@ -34,6 +34,24 @@ Masterpieces.allow({
 
 ////////////////////////////
 
+/////// Reviews ////////
+
+Reviews = new Meteor.Collection("reviews");
+
+Reviews.allow({
+	insert: function (userId, review) {
+		return false; //no cowboy insert -- use submitMasterpiece method
+	},
+	update:  function (userId, review) {
+		return userId && review.owner === userId; 
+	},
+	remove: function (userId, review) {
+		return userId && review.owner === userId; 
+	}
+});
+
+////////////////////////////
+
 /////// Methods ////////
 
 Meteor.methods({

@@ -384,5 +384,31 @@ Template.new_review.helpers({
     }
 });
 
+Template.new_review.events({
+    /*'click .submit': function (event, template) {
+        var profession = Session.get('profession');        
+        var specs = profession['specs'];
+        var masterpiece = {};
+        var chapters = [];
+        for (var i = 0; i < specs.length; ++i) {
+            var spec = specs[i];
+            var submission = template.find("#" + spec._id).value;
+            spec['submission'] = submission;
+            chapters.push(spec);
+        };
+        masterpiece['chapters'] = chapters;
+        var userId = Session.get('userId') || Meteor.userId ();
+        if (userId) {
+            masterpiece['professionId'] = profession._id;
+            Meteor.call('submitMasterpiece', masterpiece, function (error) {
+                    if (! error) { 
+                        console.log("Masterpiece submitted.");
+                        }
+                }
+            );
+        } 
+    }*/
+});
+
 ////////////////////////////////////////////////////////
 
