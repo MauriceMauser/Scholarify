@@ -6,9 +6,9 @@
 	    <div class="card" style="min-height:700px;">
 	    	<div class="tabbable">
 				<ul class="nav nav-tabs">
-					<li class="{{navClassFor 'user_info'}}"><a href="#tab1" data-toggle="tab"> 	Personal Information </a></li>
-					<li class="{{navClassFor 'my_masterpieces'}}"><a href="#tab2" data-toggle="tab"> My Masterpieces </a></li>
-					<li class="{{navClassFor 'my_reviews'}}"><a href="#tab3" data-toggle="tab">	My Reviews </a></li>
+					<li class="{{navClassFor 'user_info'}}"><a href="#tabA" data-toggle="tab"> 	Personal Information </a></li>
+					<li class="{{navClassFor 'my_masterpieces'}}"><a href="#tabB" data-toggle="tab"> My Masterpieces </a></li>
+					<li class="{{navClassFor 'my_reviews'}}"><a href="#tabC" data-toggle="tab">	My Reviews </a></li>
 				</ul>
 				<div class="tab-content">
 					{{> user_info }}
@@ -22,47 +22,149 @@
 </template>
 
 <template name="user_info">
-	<div class="tab-pane {{navClassFor 'user_info'}}" id="tab1">
-		<div class="row">
-          <div class="three columns">
-      		<img src="{{imageUrl}}">
-          </div>
-          <div class="nine columns">
-            <div class="row">
-              <h5>{{name}}</h5>
-				{{#if editing 'name'}}
-				    <input id="name" class="edit" autofocus="autofocus" type="text"  style="width:100%;" value="{{name}}" />
-				{{else}}
-					<h5 class="editable" id="edit">{{name}}</h5>
-				{{/if}}
-              <hr>
-            </div>
-            <div class="row">
-              <div class="two columns"><b>Email</b></div><div class="seven columns"><p>{{email}}</p></div>
-            </div>
-            <div class="row">
-              <div class="two columns"><b>Location</b></div><div class="seven columns"><p>{{location}}</p></div>
-            </div>
-            <hr>
-            <h5>Education</h5>
-            <p>{{education}}</p>
-            <hr>
-            <h5>Experience</h5>
-            <p>{{experience}}</p>
-            <hr>
-          </div>
-    	</div>
+	<div class="tab-pane {{navClassFor 'user_info'}}" id="tabA">
+	{{#if editing}}
+		{{> edit_profile}}
+	{{else}}
+		{{> show_profile}}
+	{{/if}}
 	</div>
+</template>
+
+<template name="edit_profile">
+		<div class="row">
+			<div class="three columns">
+				<b>Image</b>
+			</div>
+			<div class="nine columns">
+				<input id="imageUrl" class="field" type="text" value="{{this.profile.imageUrl}}" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="three columns">
+				<b>Name</b>
+			</div>
+			<div class="nine columns">
+				<input id="name" class="field" type="text" value="{{this.profile.name}}" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="three columns">
+				<b>Location</b>
+			</div>
+			<div class="nine columns">
+				<input id="location" class="field" type="text" value="{{this.profile.location}}" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="three columns">
+				<b>Education</b>
+			</div>
+			<div class="nine columns">
+				<textarea id="education" class="field" style="width:100%;height:250px;">{{this.profile.education}}</textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="three columns">
+				<b>Experience</b>
+			</div>
+			<div class="nine columns">
+				<textarea id="experience" class="field" style="width:100%;height:250px;">{{this.profile.experience}}</textarea>
+			</div>
+		</div>
+		<br>
+  		<div class="twelve columns">
+			<a href="" class="btn btn-success btn-block save" id="save">Save Profile</a>
+  		</div>
+	</div>
+</template>
+
+<template name="show_profile">
+	<div class="row">
+     	<div class="three columns">
+  			<img src="{{rootPath}}{{this.profile.imageUrl}}">
+      	</div>
+      	<div class="nine columns">
+        	<div class="row">
+        		<div class="nine columns">
+					<h5 id="name">{{this.profile.name}}</h5>
+				</div>
+        	</div>
+        	<hr>
+        	<div class="row">
+          		<div class="two columns"><b>Email</b></div><div class="seven columns"><p>{{this.email}}</p></div>
+        	</div>
+        	<br>
+        	<div class="row">
+          		<div class="two columns"><b>Location</b></div><div class="seven columns"><p>{{this.profile.location}}</p></div>
+        	</div>
+        	<hr>
+        	<div class="row">
+        		<div class="nine columns">
+        	   		<h5>Education</h5>
+        			<p>{{this.profile.education}}</p>
+        		</div>
+       		</div>
+       		<hr>
+       		<div class="row">
+       			<div class="nine columns">
+        	   		<h5>Experience</h5>
+        			<p>{{this.profile.experience}}</p>
+        		</div>
+       		</div>
+       		<hr>
+		</div>
+		{{#if isOwner}}
+  		<br>
+  		<div class="twelve columns">
+			<a href="" class="btn btn-info btn-block edit" id="edit">Edit Profile</a>
+  		</div>
+		{{/if}}
+    </div>
 </template>
 
 <template name="my_masterpieces">
-	<div class="tab-pane {{navClassFor 'my_masterpieces'}}" id="tab2">
-		<p>MY MASTERPIECES</p>
+	<div class="tab-pane {{navClassFor 'my_masterpieces'}}" id="tabB">
+		<div class="card" style="min-height:700px;">
+			<div class="row">		        
+		    	<h3>My Masterpieces</h3>
+		        <hr>
+		        	<div>
+		        	{{#each masterpieces}}
+		        		{{> my_masterpiece}}
+		        	{{/each}}          
+		            </div>
+		    </div>
+		</div>
 	</div>
 </template>
 
+<template name="my_masterpiece">
+	<input type="hidden" id="masterpieceId" value="{{_id}}">
+	<input type="hidden" id="professionId" value="{{professionId}}">
+	<input type="hidden" id="owner" value="{{owner}}">
+	<div class="well">
+	 	<h4>{{profession_title professionId}}</h4>
+      	<hr>
+      	{{#each this.chapters}}
+      		{{> chapter}}
+      	{{/each}}
+	</div> 
+</template>
+
+<template name="chapter">
+	<div>
+        <p><b>{{name}}</b></p>
+        <p>{{description}}</p>
+    </div>         
+    <div>             
+       <p>{{submission}}</p>
+    </div>
+    <hr>
+</template>
+
 <template name="my_reviews">
-	<div class="tab-pane {{navClassFor 'my_reviews'}}" id="tab3">
+	<div class="tab-pane {{navClassFor 'my_reviews'}}" id="tabC">
 		<p>MY REVIEWS</p>
 	</div>
 </template>

@@ -14,10 +14,23 @@
 				<a href="/" style="margin-top:7px;padding-top:5px;">
 					<img alt="Scholarify | Online Apprenticeships" src="{{rootPath}}logosmall.png" />
 				</a>	
-				<div class="btn" style="float:right;">
-					{{loginButtons}}
+				<div class="btn-group" style="float:right;">
+					<button class="btn">
+						{{loginButtons}}
+					</button>
+					<button class="btn dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="{{professionsIndexPath}}">Browse Professions</a></li>
+						{{#if currentUser}}
+							<hr style="margin:0px;">
+							<li><a href="{{userPath currentUser}}">My Profile</a></li>
+						{{/if}}
+						<hr style="margin:0px;">
+						<li><a href="{{rootPath}}" class="logout">Sign out</a></li>
+					</ul>	
 				</div>
-
 			</div>
 		</div>
 	</div>

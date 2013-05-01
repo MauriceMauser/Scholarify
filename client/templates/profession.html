@@ -6,19 +6,19 @@
 				<nav class="bar-tab">
 					<ul class="tab-inner">
 						<li class="tab-item {{navClassFor 'inspire'}}">
-							<a href="#lA" data-toggle="tab">
+							<a href="#tabA" data-toggle="tab">
 								<img src="{{rootPath}}courses.png" class="tab-icon"/>
 								<div class="tab-label">{{title}}</div>
 							</a>
 						</li>
 						<li class="tab-item {{navClassFor 'learn'}}">
-							<a href="#lB" data-toggle="tab">
+							<a href="#tabB" data-toggle="tab">
 								<img src="{{rootPath}}materials.png" class="tab-icon"/>					
 								<div class="tab-label">Learn Skills</div>
 							</a>
 						</li>
 						<li class="tab-item {{navClassFor 'proof'}}">
-							<a href="#lC" data-toggle="tab">
+							<a href="#tabC" data-toggle="tab">
 								<img src="{{rootPath}}feedback.png" class="tab-icon"/>				
 								<div class="tab-label">Create 'Masterpiece'</div>
 							</a>
@@ -46,7 +46,7 @@
 </template>
 
 <template name="inspire">
-	<div class="tab-pane {{navClassFor 'inspire'}}" id="lA">
+	<div class="tab-pane {{navClassFor 'inspire'}}" id="tabA">
 		<div class="nine columns">
 			{{#if editing 'title'}}
 			    <input id="title" class="edit" autofocus="autofocus" type="text"  style="width:100%;" value="{{title}}" />
@@ -92,7 +92,7 @@
 </template>
 
 <template name="learn">
-	<div class="tab-pane {{navClassFor 'learn'}}" id="lB">
+	<div class="tab-pane {{navClassFor 'learn'}}" id="tabB">
 		<h4><small>{{title}}</small></h4>
 		<h2>Study Materials</h2>
 		<hr>
@@ -108,7 +108,7 @@
 </template>
 
 <template name="proof">
-	<div class="tab-pane {{navClassFor 'proof'}}" id="lC">
+	<div class="tab-pane {{navClassFor 'proof'}}" id="tabC">
 		{{> masterpiece }}
 	</div>
 </template>
@@ -151,16 +151,16 @@
 				<div class="card" style="min-height:700px;">
 					<h2>Apprenticeship Content</h2>
 					<ul class="nav nav-tabs">
-						<li class="{{navClassFor 'inspire_backend'}}">	<a href="#bA" data-toggle="tab">Job Description</a></li>
-						<li class="{{navClassFor 'learn_backend'}}"><a href="#bB" data-toggle="tab">Learning Material</a></li>
-						<li class="{{navClassFor 'proof_backend'}}"><a href="#bC" data-toggle="tab">Validation Criteria</a></li>
+						<li class="{{navClassFor 'inspire_backend'}}">	<a href="#tabA" data-toggle="tab">Job Description</a></li>
+						<li class="{{navClassFor 'learn_backend'}}"><a href="#tabB" data-toggle="tab">Learning Material</a></li>
+						<li class="{{navClassFor 'proof_backend'}}"><a href="#tabC" data-toggle="tab">Validation Criteria</a></li>
 					</ul>
 					<div class="row">
 						<div class="twelve columns">
 							<div class="tab-content">
-								<div class="tab-pane {{navClassFor 'inspire_backend'}}" id="bA">{{> inspire_backend}}</div>
-								<div class="tab-pane {{navClassFor 'learn_backend'}}" 		 id="bB">{{> learn_backend}}</div>
-								<div class="tab-pane {{navClassFor 'proof_backend'}}" 		 id="bC">{{> proof_backend}}</div>
+								<div class="tab-pane {{navClassFor 'inspire_backend'}}" id="tabA">{{> inspire_backend}}</div>
+								<div class="tab-pane {{navClassFor 'learn_backend'}}" 		 id="tabB">{{> learn_backend}}</div>
+								<div class="tab-pane {{navClassFor 'proof_backend'}}" 		 id="tabC">{{> proof_backend}}</div>
 								<hr style="border: solid #fff;">
 								{{#if error}}
         							<div class="alert alert-error">{{error}}</div>

@@ -3,10 +3,9 @@ Meteor.subscribe("masterpieces");
 
 Deps.autorun( function () {
     Meteor.subscribe("userData");
-    var userId = Meteor.userId();
-    Session.set("userId", userId);
+    Session.set("userId", Meteor.userId());
+    Session.set("current_user", Meteor.user());
     var current_user = Meteor.user();
-    Session.set("current_user", current_user);
     isAdmin = current_user && current_user.isAdmin;
     Session.set("admin", isAdmin);
     console.log(current_user);
@@ -25,10 +24,9 @@ function authorizeAdmin (context, page) {
 
 function setProfile (context, page) {
     var _id = context.params._id;
-    var profile = Meteor.users.findOne(_id);
-    Session.set("profile", profile);
-    var current_user = Session.get("current_user");
-    var isOwner = (profile === current_user) ? true : false;
+    Session.set("profile", Meteor.users.findOne(_id));
+    var user = Meteor.user();
+    var isOwner = ( _id == (user && user._id) ) ? true : false;
     Session.set("isOwner", isOwner); 
 };
 
@@ -42,7 +40,7 @@ function generateId () {
 };
 
 Handlebars.registerHelper("navClassFor", function (nav, options) {
-      return Meteor.router.navEquals(nav) ? "active" : "";
+    return Meteor.router.navEquals(nav) ? "active" : "";
   });
 
 
@@ -56,7 +54,7 @@ Meteor.pages({
 	// Page values can be an object of options, a function or a template name string
 
     '/': { to: 'professionsIndex', as: 'root' },
-    '/profile/:_id': { to: 'profile', as: 'user', before: setProfile },
+    '/profile/:_id': { to: 'profile', as: 'user', before: setProfile, nav: 'user_info' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
     '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin },
     '/professions/admin': { to: 'adminIndex', before: authorizeAdmin },
@@ -80,44 +78,58 @@ Meteor.pages({
 
 ////////////////////////////
 
+Template.layout.events({
+    'click .logout': function () {
+        Meteor.logout();
+    }
+});
+
 
 /////// Users ///////////////
 
 Template.profile.helpers({
     user: function () { 
-        return Session.get("profile");  
-    } 
+        return Session.get("profile");
+    }
 });
 
-Template.profile.events({
-   
-    'click .editable': function (event) { 
-        var target = event.target.id || window.event.srcElement.id //IE
-        if (isOwner)
-            { Session.set("editing", target);  console.log("edit " + target); }
-        },
-   'focus .edit': function (event, template) { 
-        var target = event.target.id || window.event.srcElement.id //IE
-        document.getElementById(target).select(); 
-        },
-   'blur .edit': function (event, template) {
-        var target = event.target.id || window.event.srcElement.id //IE
-        var val = document.getElementById(target).value;
-        var options = {};
-        options[target] = val;
-        Meteor.call('setUserData', Session.get("current_user"), options, function (error) {
-                if (! error) { console.log("User data updated."); }
-            }); 
-        Session.set("editing");
-        }
-
+Template.user_info.events({
+   'click .edit': function () {
+        if (Session.get("isOwner"))
+            {  return Session.set("editing", true) }
+   }
 });
 
-Template.user_info.editing = function (field) {
-    if (isOwner)
-        { return Session.equals("editing", field); }   
-};
+Template.user_info.helpers({
+    editing: function () {
+        if (Session.get("isOwner"))
+        { return Session.get("editing"); }   
+    }
+});
 
+Template.show_profile.helpers({
+    isOwner: function () {
+        return Session.get("isOwner"); 
+    }
+});
+
+Template.edit_profile.events({
+    'click .save': function (event, template) {
+        var name = template.find("#name").value;
+        var location = template.find("#location").value;
+        var education = template.find("#education").value;
+        var experience = template.find("#experience").value;
+        var imageUrl = template.find("#imageUrl").value || rootPath + "male_user.png";
+        var options = { name: name,
+                        location: location,
+                        education: education,
+                        experience: experience,
+                        imageUrl: imageUrl };
+        Meteor.call('updateProfile', options, function (error) {
+                    if (! error) { console.log("Profile updated."); Session.set('editing'); }
+                });
+    }
+});
 
 ////////////////////////////
 
@@ -316,6 +328,25 @@ Template.masterpiece.events({
     }
 });
 
+////////// SHOW /////////////
+
+////////// my_masterpiece /////////////
+
+Template.my_masterpieces.helpers({
+    masterpieces: function () { 
+        var owner = Meteor.user();
+        var ownerId = owner && owner._id;
+        return Masterpieces.find({owner: ownerId });
+    }
+});
+
+Template.my_masterpiece.helpers({
+    profession_title: function (professionId) {
+        var professionId = professionId;
+        var profession = Professions.findOne({_id: professionId});
+        return profession && profession.title;
+    }
+});
 
 ////////////////////////////////////////////////////////
 

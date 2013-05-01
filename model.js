@@ -37,6 +37,22 @@ Masterpieces.allow({
 /////// Methods ////////
 
 Meteor.methods({
+	//Accounts
+	updateProfile: function (options) {
+		var options = options || {};
+		var user = Meteor.user();
+		return Meteor.users.update(user, {
+			$set: {
+				profile: {
+					name: options.name,
+					location: options.location,
+					education: options.education,
+					experience: options.experience,
+					imageUrl: options.imageUrl
+				}
+			}
+		});
+	},
 	//Professions
 	publishProfession: function (options) {
 		var options = options || {};
@@ -70,7 +86,7 @@ Meteor.methods({
 			});
 	},
 	updateProfession: function (profession, options) {
-		options = options || {};
+		var options = options || {};
 		return Professions.update(profession, {$set: options});
 	},
 	deleteProfession: function (profession) {
