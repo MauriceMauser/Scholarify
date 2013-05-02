@@ -119,6 +119,16 @@ Meteor.methods({
 				project['owner'] = this.userId;
 		 	 }
 		return Masterpieces.insert(project);
+	},
+	//Reviews
+	submitReview: function (options) {
+		var review = options || {};	
+		if (! this.userId)
+			{ throw new Meteor.error(403, "You must be logged in"); }
+		else { 
+				review['owner'] = this.userId;
+		 	 }
+		return Reviews.insert(review);
 	}
 });
 

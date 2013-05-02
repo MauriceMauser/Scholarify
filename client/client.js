@@ -1,5 +1,6 @@
 Meteor.subscribe("professions");
 Meteor.subscribe("masterpieces");
+Meteor.subscribe("reviews");
 
 Deps.autorun( function () {
     Meteor.subscribe("userData");
@@ -40,6 +41,11 @@ function setMasterpiece (context, page) {
     Session.set("masterpiece", Masterpieces.findOne(_id));
 };
 
+function setReview (context, page) {
+    var _id = context.params._id;
+    Session.set("review", Reviews.findOne(_id));
+};
+
 function generateId () {
     return '_' + Math.random().toString(36).substr(2, 9);
 };
@@ -51,6 +57,18 @@ Handlebars.registerHelper("navClassFor", function (nav, options) {
 Handlebars.registerHelper('newReviewLink', function(text, _id) {
   return new Handlebars.SafeString(
     "<a href='/masterpieces/" + _id + "/review'>" + text + "</a>"
+  );
+});
+
+Handlebars.registerHelper('showReviewLink', function(text, _id) {
+  return new Handlebars.SafeString(
+    "<a href='/reviews/" + _id + "'>" + text + "</a>"
+  );
+});
+
+Handlebars.registerHelper('masterpieceReviewsLink', function(text, _id) {
+  return new Handlebars.SafeString(
+    "<a href='/masterpieces/" + _id + "/reviews'>" + text + "</a>"
   );
 });
 
@@ -73,7 +91,9 @@ Meteor.pages({
     '/profession/:_id/learn': { to: 'professionShow', before: setProfession, nav: 'learn' },
     '/profession/:_id/proof': { to: 'professionShow', before: setProfession, nav: 'proof' },
     '/profession/:_id/masterpieces': { to: 'masterpieceIndex', before: setProfession, as: 'masterpieces' },
+    '/masterpieces/:_id/reviews': { to: 'masterpieceReviews', before: setMasterpiece, as: 'masterpieceReviews'},
     '/masterpieces/:_id/review': { to: 'new_review', before: setMasterpiece, as: 'newReview'},
+    '/reviews/:_id': { to: 'showReview', before: setReview, as: 'showReview' },
     '/about': { to: 'about', as: 'about' },
     '/contact': { to: 'contact', as: 'contact' },
     '/401': { to: 'unauthorized'},
@@ -377,38 +397,63 @@ Template.masterpieceIndex.helpers({
 
 ////// Reviews ////////////////////////////////////////
 
+////// NEW ////////////
+
 Template.new_review.helpers({
     chapters: function () {
         var masterpiece = Session.get("masterpiece");
-        return masterpiece && masterpiece.chapters
+        return masterpiece && masterpiece.chapters;
     }
 });
 
 Template.new_review.events({
-    /*'click .submit': function (event, template) {
-        var profession = Session.get('profession');        
-        var specs = profession['specs'];
-        var masterpiece = {};
-        var chapters = [];
-        for (var i = 0; i < specs.length; ++i) {
-            var spec = specs[i];
-            var submission = template.find("#" + spec._id).value;
-            spec['submission'] = submission;
-            chapters.push(spec);
+    'click .submit': function (event, template) {
+        var userId = Meteor.userId ();
+        var masterpiece = Session.get("masterpiece");
+        var review = {};
+        var chapters = masterpiece && masterpiece.chapters;
+        var review_chapters = [];
+        for (var i = 0; i < chapters.length; ++i) {
+            var chapter = chapters[i];
+            var qual_review = template.find("#" + chapter._id).value;
+            chapter['review'] = qual_review;
+            review_chapters.push(chapter);
         };
-        masterpiece['chapters'] = chapters;
-        var userId = Session.get('userId') || Meteor.userId ();
-        if (userId) {
-            masterpiece['professionId'] = profession._id;
-            Meteor.call('submitMasterpiece', masterpiece, function (error) {
+        review['chapters'] = review_chapters;
+        if (Meteor.user()) {
+            review['masterpieceId'] = masterpiece._id;
+            Meteor.call('submitReview', review, function (error) {
                     if (! error) { 
-                        console.log("Masterpiece submitted.");
+                        console.log("Review submitted.");
                         }
                 }
             );
         } 
-    }*/
+    }
 });
 
+////// INDEX ////////////
+
+Template.masterpieceReviews.helpers({
+    masterpiece: function () {
+        return Session.get("masterpiece");
+    },
+    reviews: function () {
+        var masterpiece = Session.get("masterpiece");
+        var masterpieceId = masterpiece && masterpiece._id;
+        return Reviews.find({masterpieceId: masterpieceId});
+    }
+});
+
+////// SHOW ////////////
+
+Template.showReview.helpers({
+    review: function () {
+        return Session.get("review");
+    }
+});
+
+
 ////////////////////////////////////////////////////////
+
 

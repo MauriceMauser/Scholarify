@@ -1,22 +1,33 @@
+<!-- NEW -->
 <template name="new_review">
 	<div class="container">
 		<div class="row">
 			<div class="card" style="min-height:700px;">
-				<h2>Review Masterpiece</h2>
-				<hr>
-				<div class="twelve columns">
-				{{#each chapters}}
-					{{> chapter_review }}
-  				{{/each}}
-				<hr>
+				<div class="row">
+					<div class="twelve columns">
+						<h2>Review Masterpiece</h2>
+						<hr>
+					</div>
 				</div>
-				<button class="btn btn-large btn-block btn-success submit">Submit Review</button>
+				<div class="row">
+					<div class="twelve columns">
+						{{#each chapters}}
+							{{> newChapterReview }}
+		  				{{/each}}
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="twelve columns">
+						<a href="{{rootPath}}" class="btn btn-large btn-block btn-success submit">Submit Review</a>
+					</div>					
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
-<template name="chapter_review">				    
+<template name="newChapterReview">				    
   	<div class="twelve columns well">
     	<div class="five columns">
 	    	<h5>
@@ -44,14 +55,101 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li id="1">Fail</li>
-							<li id="2">Sufficient</li>
-							<li id="3">Good</li>
-							<li id="4">Excellent</li>
+							<li id="1"><a href="">Insufficient</a></li>
+							<li id="2"><a href="">Sufficient</a></li>
+							<li id="3"><a href="">Good</a></li>
+							<li id="4"><a href="">Excellent</a></li>
 						</ul>	
 					</div>
 				</span>
 			</div>
      	</div> 
   	</div>
+</template>
+
+<!-- INDEX -->
+<template name="masterpieceReviews">
+	{{#with masterpiece}}
+	<div class="card" style="min-height:700px;">
+		<div class="row">		        
+	    	<h3>Reviews</h3>
+	        <hr>
+	    </div>
+	    <div class="row">
+	    	{{#each reviews}}
+	    		{{> showReviewSummary}}
+	    	{{/each}}	
+	  	</div>
+	</div>
+	{{/with}}
+</template>
+
+<template name="showReviewSummary">
+	<div class="row">
+    	<div class="twelve columns well">
+	    	<h5>
+	      		Feedback
+	    	</h5>
+	    	<p>Your Score: X</p>
+	    	<hr>
+	    	<div class="btn">
+	    		{{{showReviewLink 'Show Feedback' this._id}}}
+	    	</div>
+    	</div>	
+  	</div>
+</template>
+
+<!-- SHOW -->
+<template name="showReview">
+	{{#with review}}
+	<div class="container">
+		<div class="row">
+			<div class="card" style="min-height:700px;">
+				<div class="row">
+					<div class="twelve columns">
+						<h2>Review</h2>
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="twelve columns">
+						{{#each review.chapters}}
+							{{> showChapterReview }}
+		  				{{/each}}
+						<hr>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{/with}}
+</template>
+
+<template name="showChapterReview">
+	<div class="twelve columns well">
+	    	<div class="five columns">
+		    	<h5>
+		      		{{name}}
+		    	</h5>
+		    	<p>
+		    		{{description}}
+		    	</p>
+		    	<hr>
+		    	<p>
+		    		{{submission}}
+		    	</p>
+	    	</div>
+	    	<div class="seven columns">
+	    		<h5>Feedback:</h5>
+	    		<p>Does your project meet the specification: <b>{{name}}</b>?</p>    		
+			      <p>{{review}}</p>
+			    <hr>
+			    <div class="row">
+			    	<span class="three columns"><h5>Your Score: </h5></span>
+				    <span class="four columns">
+				    	<p>Insufficien|Sufficient|Good|Excellent</p>
+					</span>
+				</div>
+	     	</div> 
+	  	</div>
 </template>

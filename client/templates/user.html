@@ -141,11 +141,22 @@
 
 <template name="my_masterpiece">
 	<div class="well">
-	 	<h4>{{profession_title professionId}}</h4>
-      	<hr>
-      	{{#each this.chapters}}
-      		{{> chapter}}
-      	{{/each}}
+		<div class="row">
+			<div class="seven columns">
+				<h4>{{profession_title professionId}}</h4>
+			</div>
+			<div class="five columns">
+				<div class="btn">
+					{{{masterpieceReviewsLink 'Show Reviews' this._id}}}
+				</div>
+			</div>
+      		<hr>
+      	</div>
+      	<div class="row">
+	      	{{#each this.chapters}}
+	      		{{> chapter}}
+	      	{{/each}}
+      	</div>
 	</div> 
 </template>
 
