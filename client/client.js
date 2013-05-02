@@ -84,7 +84,7 @@ Meteor.pages({
     '/': { to: 'professionsIndex', as: 'root' },
     '/profile/:_id': { to: 'profile', as: 'user', before: setProfile, nav: 'user_info' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
-    '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin },
+    '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin, nav: 'inspire_backend' },
     '/professions/admin': { to: 'adminIndex', before: authorizeAdmin },
     '/profession/:_id': { to: 'professionShow', as: 'profession', before: setProfession, nav: 'inspire' },
     '/profession/:_id/inspire': { to: 'professionShow', before: setProfession, nav: 'inspire' },
@@ -208,9 +208,9 @@ Template.professionShow.events({
             }); 
         Session.set("editing");
         }
-
 });
 
+//To-Do: DRY editing, replace isAdmin with isCreator {{> learn_backend}}
 Template.inspire.editing = function (field) {
     if (isAdmin)
         { return Session.equals("editing", field); }   
@@ -220,9 +220,49 @@ Template.professionPin.truncated_description = function () {
     return this.description.substring(0,120);
 };
 
-Template.learn.materialHTML = function () {
-    return new Handlebars.SafeString(this.material);
-};
+Template.learn.helpers({
+    materialHTML: function () {
+        return new Handlebars.SafeString(this.material);
+    },
+    isCreator: function () {
+        var profession = Session.get("profession");
+        var creator = profession && profession.creator; 
+        var userId = Meteor.userId();
+        return creator === userId;
+    }
+});
+
+/*Template.learn.events({
+    'click .update': function (event, template) {
+        var val = document.getElementById('redactor_content').value;
+        var options = {};
+        options['material'] = val;
+        Meteor.call('updateProfession', Session.get("profession"), options, function (error) {
+                if (! error) { console.log("Profession updated."); }
+            }); 
+        Session.set("editing");
+    }
+});*/
+
+Template.proof.helpers({
+    isCreator: function () {
+        var profession = Session.get("profession");
+        var creator = profession && profession.creator; 
+        var userId = Meteor.userId();
+        return creator === userId;
+    }/*,
+    editing: function (field) {
+        return Session && Session.get("editing") && Session.equals("editing", field);
+    }*/
+});
+
+/*Template.proof.events({
+    'click .update': function (event, template) {
+        Session.set("editing");
+        return
+    }
+});*/
+
 
 /////// EDIT ////////
 
@@ -292,11 +332,13 @@ Template.adminIndex.events({
  
 ////////// specification /////////////
 Template.new_specs.helpers({
-    specs: function () {
+    specs: function () { 
+        /*var profession = Session && Session.get('profession');
         var id1 = generateId();
         var id2 = generateId();
-        var specs = [{ _id: id1, name: "First specification.", description: "Insert description." }, { _id: id2, name: "Second specification.", description: "Insert description." }];
-        return Session.get('specs') || Session.set('specs', specs) ;
+        var specs = profession && profession['specs'] || [{ _id: id1, name: "First specification.", description: "Insert description." }, { _id: id2, name: "Second specification.", description: "Insert description." }];       
+        return Session && Session.get('specs') || Session.set('specs', specs) ;*/
+        return Session && Session.get("specs");
         }
     });
 
@@ -312,17 +354,40 @@ Template.new_specs.events({
         Session.set('specs', specs);
     },
     'click .add': function () {
-        var specs = Session.get('specs') || [{}];
+        var specs = Session.get('specs') || [];
         var id = generateId();
-        specs.push({_id: id, name: 'Insert name.', description: 'Insert description.'});
-        Session.set('specs', specs);
+        if (id) { 
+            specs.push({_id: id, name: '', description: ''});
+            Session.set('specs', specs); 
+        } 
     }
 });
 
-
-Template.new_spec.spec = function () {
-    return Session.get('specs');
-};
+Template.new_spec.events({
+    'focus .edit': function (event, template) { 
+        var target = event.target.id || window.event.srcElement.id //IE
+        document.getElementById(target).select(); 
+        },    
+    'blur .edit': function (event, template) {
+        var specId = template.data._id
+        var target = event.target.id || window.event.srcElement.id //IE
+        var attr = target.substr(0, target.indexOf('_')); 
+        var val = document.getElementById(target).value;
+        var specs = Session && Session.get("specs") || [];
+        var spec = { _id: specId, name: '', description: '' };
+        if (isAdmin) {
+            for (var i = 0; i < specs.length; ++i) {
+                if (specs[i]._id == specId) { 
+                    spec = specs[i];
+                    spec[attr] = val;
+                    spec['_id'] = specId;
+                    specs[i] = spec;  
+                }
+            };
+            Session.set("specs", specs);
+        };
+    }
+});
 
 ////////// masterpiece /////////////
 

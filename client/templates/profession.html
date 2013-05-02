@@ -93,23 +93,31 @@
 
 <template name="learn">
 	<div class="tab-pane {{navClassFor 'learn'}}" id="tabB">
-		<h4><small>{{title}}</small></h4>
-		<h2>Study Materials</h2>
-		<hr>
-		<br>
-		<div class="twelve columns">
-			<div class="well">
-				{{materialHTML}}
-			</div>
+	<h4><small>{{title}}</small></h4>
+	<h2>Study Materials</h2>
+	<hr>
+	<br>
+	<div class="twelve columns">
+		<div class="well">
+			{{materialHTML}}
 		</div>
-		<br>
-		<hr>
 	</div>
+	<br>
+	<hr>
+	{{#if isCreator}}
+		<div class="btn btn-danger editable" id="material">Edit Material</button>
+	{{/if}}
+</div>
 </template>
 
 <template name="proof">
 	<div class="tab-pane {{navClassFor 'proof'}}" id="tabC">
-		{{> masterpiece }}
+	{{> masterpiece }}
+	<br>
+	<hr>
+	{{#if isCreator}}
+		<a href="" class="btn btn-danger edit">Edit Specs</a>
+	{{/if}}
 	</div>
 </template>
 
