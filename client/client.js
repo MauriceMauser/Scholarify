@@ -510,6 +510,19 @@ Template.masterpieceReviews.helpers({
     }
 });
 
+Template.my_reviews.helpers({
+    reviews: function () {
+        var userId = Meteor.userId();
+        return Reviews.find({owner: userId});
+    },
+    masterpiece_title: function (masterpieceId) {
+        var masterpiece = Masterpieces.findOne({_id: masterpieceId});
+        var professionId = masterpiece.professionId;
+        var profession = Professions.findOne({_id: professionId});
+        return profession && profession.title;
+    }
+});
+
 ////// SHOW ////////////
 
 Template.showReview.helpers({

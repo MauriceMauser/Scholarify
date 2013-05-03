@@ -173,7 +173,31 @@
 
 <template name="my_reviews">
 	<div class="tab-pane {{navClassFor 'my_reviews'}}" id="tabC">
-		<p>MY REVIEWS</p>
+		<div class="container">
+			<div class="row">
+				<div class="card" style="min-height:700px;">
+				{{#each reviews}}
+					<div class="row">
+							<div class="twelve columns">
+								<h2>Review</h2><p>for {{masterpiece_title this.masterpieceId}}</p>
+								<hr>
+							</div>
+						</div>
+						<div class="row">
+							<div class="twelve columns">
+								{{#each this.chapters}}
+									{{> showChapterReview }}
+				  				{{/each}}
+								<hr>
+							</div>
+						</div>
+						<br>
+						<hr>
+						<br>
+				{{/each}}
+				</div>
+			</div>
+		</div>	
 	</div>
 </template>
 
