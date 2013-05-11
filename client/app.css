@@ -109,7 +109,7 @@ padding-top: 2px;
 
 html { font-size: 62.5%; }
 
-body { background: url(/images/background.png); 
+body { background: url(/images/textures/fabric_of_squares_gray.png); 
   font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; 
   font-size: 14px; line-height: 1; color: #555555; position: relative; -webkit-font-smoothing: antialiased; }
 
@@ -160,7 +160,7 @@ p.lead { font-size: 17.5px; line-height: 1.6; margin-bottom: 17px; }
 
 aside p { font-size: 13px; line-height: 1.35; font-style: italic; }
 
-h1, h2, h3, h4, h5, h6 { font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: bold; color: #222222; text-rendering: optimizeLegibility; line-height: 1.1; margin-bottom: 14px; margin-top: 14px; }
+h1, h2, h3, h4, h5, h6 { font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: bold; color: #444; text-rendering: optimizeLegibility; line-height: 1.1; margin-bottom: 14px; margin-top: 14px; }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { font-size: 60%; color: #6f6f6f; line-height: 0; }
 
 h1 { font-size: 44px; }
@@ -5367,7 +5367,7 @@ button.close {
 
 
 div.card {
-  background: #ffffff;
+  background: #fdfdfd;
   padding-top: 20px;
   padding-right: 20px;
   padding-bottom: 15px;
@@ -6125,3 +6125,10 @@ ul.tags li a:hover{
   color: #858585;
   
 }
+
+
+
+#footer{margin:60px 0 0}#footer .footer-container{width:100%}#footer .footer-container.grey{background:#f8f8f8;border-bottom:1px solid #ddd;border-top:1px solid #ddd}#footer .footer-container .footer-wrapper{margin:0 auto;padding:29px 0;width:930px}
+
+
+

@@ -14,8 +14,8 @@
 					{{> user_info }}
 					{{> my_masterpieces }}
 					{{> my_reviews }}
-				</div> 
-			</div>   
+				</div>
+			</div>
 	    </div>
 	</div>
 	{{/with}}
@@ -72,10 +72,10 @@
 				<textarea id="experience" class="field" style="width:100%;height:250px;">{{this.profile.experience}}</textarea>
 			</div>
 		</div>
-		<br>
-  		<div class="twelve columns">
+    <br>
+  	<div class="twelve columns">
 			<a href="" class="btn btn-success btn-block save" id="save">Save Profile</a>
-  		</div>
+  	</div>
 	</div>
 </template>
 
@@ -125,17 +125,25 @@
 
 <template name="my_masterpieces">
 	<div class="tab-pane {{navClassFor 'my_masterpieces'}}" id="tabB">
-		<div class="card" style="min-height:700px;">
-			<div class="row">		        
+			<div class="row">
 		    	<h3>My Masterpieces</h3>
 		        <hr>
 		        	<div>
 		        	{{#each masterpieces}}
 		        		{{> my_masterpiece}}
-		        	{{/each}}          
-		            </div>
-		    </div>
-		</div>
+		        	{{/each}}
+		          </div>
+            <br>
+            <hr>
+		  </div>
+	      <div class="row">
+	        <div class="twelve columns">
+	        	<h5>Browse professions and create a new Masterpiece:</h5>
+	        	<a href="{{professionsPath}}" class="btn btn-success btn-large">Browse Professions</a>
+	        </div>
+	      </div>
+	      <br>
+	      <hr>
 	</div>
 </template>
 
@@ -157,15 +165,15 @@
 	      		{{> chapter}}
 	      	{{/each}}
       	</div>
-	</div> 
+	</div>
 </template>
 
 <template name="chapter">
 	<div>
         <p><b>{{name}}</b></p>
         <p>{{description}}</p>
-    </div>         
-    <div>             
+    </div>
+    <div>
        <p>{{submission}}</p>
     </div>
     <hr>
@@ -191,13 +199,18 @@
 								<hr>
 							</div>
 						</div>
+						<div class="row">
+				        <div class="twelve columns">
+				        	<h5>Review more projects to increase your reputation:</h5>
+				        	<a href="{{masterpiecesPath}}" class="btn btn-success btn-large">Review Projects</a> <!-- add Modal: select profession -->
+				        </div>
 						<br>
 						<hr>
 						<br>
 				{{/each}}
 				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
 </template>
 

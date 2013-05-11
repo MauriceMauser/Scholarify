@@ -157,10 +157,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="card" style="min-height:700px;">
-					<h2>Apprenticeship Content</h2>
-					<ul class="nav nav-tabs">
-						<li class="{{navClassFor 'inspire_backend'}}">	<a href="#tabA" data-toggle="tab">Job Description</a></li>
-						<li class="{{navClassFor 'learn_backend'}}"><a href="#tabB" data-toggle="tab">Learning Material</a></li>
+					<div class="page-header">
+						<h3>Create a Profession Profile</h3>
+					</div>
+					<ul class="nav nav-pills">
+						<li class="{{navClassFor 'inspire_backend'}}">	<a href="#tabA" data-toggle="tab">Describe Profession</a></li>
+						<li class="{{navClassFor 'learn_backend'}}"><a href="#tabB" data-toggle="tab">Teaching Material</a></li>
 						<li class="{{navClassFor 'proof_backend'}}"><a href="#tabC" data-toggle="tab">Validation Criteria</a></li>
 					</ul>
 					<div class="row">
@@ -169,12 +171,21 @@
 								<div class="tab-pane {{navClassFor 'inspire_backend'}}" id="tabA">{{> inspire_backend}}</div>
 								<div class="tab-pane {{navClassFor 'learn_backend'}}" 		 id="tabB">{{> learn_backend}}</div>
 								<div class="tab-pane {{navClassFor 'proof_backend'}}" 		 id="tabC">{{> proof_backend}}</div>
-								<hr style="border: solid #fff;">
 								{{#if error}}
         							<div class="alert alert-error">{{error}}</div>
       							{{/if}}
-								<a href="{{rootPath}}" class="well well-large btn btn-large btn-block btn-success save" id="publish">Publish</a>
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="twelve columns">
+							<div class="well">
+								<p>
+									Publish the profession profile once you've provided information <b>describing</b> the profession, linked to <b>study material</b> teaching the skills required to pursue the profession, and defined the <b>validation criteria</b> as a guideline for project submissions proving those skills. 
+								</p>
+							</div>
+							<br \>
+							<a href="{{rootPath}}" class="well well-large btn btn-large btn-block btn-success save" id="publish">Publish</a>
 						</div>
 					</div>
 				</div>
@@ -185,62 +196,103 @@
 
 <template name="inspire_backend">
 	<div class="row">
-		<div class="three columns">
-			<p style="font-size:15px;"><i class="icon-info-sign" style="vertical-align:0;"></i> Job Title </p>
-		</div>
-		<div class="nine columns">
-		    <input id="profession_title" type="text" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="three columns">
-			<p style="font-size:15px;"><i class="icon-user" style="vertical-align:0;"></i> Sponsoring Company </p>
-		</div>
-		<div class="nine columns">
-		    <input id="profession_sponsor" type="text" />	
+		<div class="twelve columns">
+			<div class="well">
+				<h4>Describe your Profession</h4>
+				<p> The objective of this section is to provide guidance and inspiration to budding engineers thinking about how to plan their career.</p>
+				<p>Please fill out the form, providing details about the profession you are promoting.</p>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="three columns">
-			<p style="font-size:15px;"><i class="icon-film" style="vertical-align:0;"></i> Intro Video URL </p>
+	<div class="well" style="background-color: transparent;">
+		<div class="row">
+			<div class="three columns">
+				<p style="font-size:15px;"><i class="icon-info-sign" style="vertical-align:0;"></i> Profession Title: </p>
+			</div>
+			<div class="nine columns">
+			    <input id="profession_title" type="text" />
+			</div>
 		</div>
-		<div class="nine columns">
-		    <input id="profession_video" type="text" />	
+		<div class="row">
+			<div class="three columns">
+				<p style="font-size:15px;"><i class="icon-user" style="vertical-align:0;"></i> Sponsoring Companies: </p>
+			</div>
+			<div class="nine columns">
+			    <input id="profession_sponsor" type="text" />	
+			</div>
+			<!-- ToDo: tag companies, tag technologies-->
 		</div>
-	</div>
-	<div class="row">
-		<div class="three columns">
-			<p style="font-size:15px;"><i class="icon-film" style="vertical-align:0;"></i> Thumbnail URL </p>
+		<div class="row">
+			<div class="three columns">
+				<p style="font-size:15px;"><i class="icon-film" style="vertical-align:0;"></i> Intro Video URL: </p>
+			</div>
+			<div class="nine columns">
+			    <input id="profession_video" type="text" />	
+			</div>
 		</div>
-		<div class="nine columns">
-			<input id="profession_image" type="text" />	
+		<div class="row">
+			<div class="three columns">
+				<p style="font-size:15px;"><i class="icon-film" style="vertical-align:0;"></i> Thumbnail URL: </p>
+			</div>
+			<div class="nine columns">
+				<input id="profession_image" type="text" />	
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="three columns">
-			<p style="font-size:15px;"><i class="icon-list" style="vertical-align:0;"></i> Job Description </p>
+		<div class="row">
+			<div class="three columns">
+				<p style="font-size:15px;"><i class="icon-list" style="vertical-align:0;"></i> Description: </p>
+			</div>
+			<div class="nine columns">
+			    <input id="profession_description" type="text" style="width:100%;height:250px;" />	
+			</div>
 		</div>
-		<div class="nine columns">
-		    <input id="profession_description" type="text" style="width:100%;height:250px;" />	
-		</div>
-	</div>
-	<div class="row">
-		<div class="three columns">
-			<p style="font-size:15px;"><i class="icon-list" style="vertical-align:0;"></i> Requirements </p>
-		</div>
-		<div class="nine columns">
-			<input id="profession_requirements" type="text" style="width:100%;height:80px;" />	
+		<div class="row">
+			<div class="three columns">
+				<p style="font-size:15px;"><i class="icon-list" style="vertical-align:0;"></i> Requirements: </p>
+			</div>
+			<div class="nine columns">
+				<input id="profession_requirements" type="text" style="width:100%;height:80px;" />	
+			</div>
 		</div>
 	</div>
 </template>
 
 <template name="learn_backend">
-	<h4>Study Materials</h4>
-	<textarea id="redactor_content" name="content"></textarea>
+	<div class="row">
+		<div class="twelve columns">
+			<div class="well">
+				<h4>Point to Learning Material</h4>
+				<p>The objective of this section is to help budding engineers to find the resources necessary to learn you profession.</p>
+				<p>Please link to online teaching material that is freely accessible. Feel free to put the material into context.</p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<div>
+				<textarea id="redactor_content" name="content"></textarea>
+			</div>
+		</div>
+	</div>
+	<br \>
 </template>
 
 <template name="proof_backend">
-	{{> new_specs }}
+	<div class="row">
+		<div class="twelve columns">
+			<div class="well">
+				<h4>Specify Validation Criteria for Masterpieces</h4>
+				<p>The objective of this section is to help Scholars identify what to incorporate into their Masterpiece project. By submitting Masterpieces, our budding engineers are asked to demonstrate the mastery of a profession. This section also serves as a guideline for peer-reviewers, structuring their evalution process.
+				</p>
+				<p>So, please specify the skills you want to see proven within a masterpiece. This may include the demonstration of</p> 
+				<ul>
+					<li>specific technical skills (e.g. JavaScript, NoSQL etc.),</li><br>
+					<li>generally relevant best practices (e.g. Test-Driven-Development, DRY Code etc.),</li><br>
+					<li>requests for demo sources (e.g. "Link to your GitHub repository").</li>
+			</div>
+		</div>
+	</div>
+	{{> new_specs }}		
 </template>
 
 

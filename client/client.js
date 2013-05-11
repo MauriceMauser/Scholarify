@@ -85,7 +85,7 @@ Meteor.pages({
     '/profile/:_id': { to: 'profile', as: 'user', before: setProfile, nav: 'user_info' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
     '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin, nav: 'inspire_backend' },
-    '/professions/admin': { to: 'adminIndex', before: authorizeAdmin },
+    '/professions/admin': { to: 'adminIndex', as: 'admin', before: authorizeAdmin },
     '/profession/:_id': { to: 'professionShow', as: 'profession', before: setProfession, nav: 'inspire' },
     '/profession/:_id/inspire': { to: 'professionShow', before: setProfession, nav: 'inspire' },
     '/profession/:_id/learn': { to: 'professionShow', before: setProfession, nav: 'learn' },
@@ -110,11 +110,27 @@ Meteor.pages({
 
 ////////////////////////////
 
+Template.layout.helpers({
+    isAdmin: function () {
+        return Session && Session.get('admin');
+    }
+});
+
 Template.layout.events({
     'click .logout': function () {
         Meteor.logout();
     }
 });
+
+/*Template.layout.rendered = function () { 
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=487294791309701";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+};*/
 
 
 /////// Users ///////////////
@@ -268,7 +284,7 @@ Template.proof.helpers({
 
 Template.learn_backend.rendered = function () {
     (function () {
-            $('#redactor_content').redactor({ fixed: true });
+            $('#redactor_content').redactor({ fixed: true,  minHeight: 300 });
         }());
 };
 

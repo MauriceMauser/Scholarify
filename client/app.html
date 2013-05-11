@@ -7,14 +7,14 @@
 </body>
 
 <!-- ////// LAYOUT ////// -->
-<template name="layout">	
-	<div style="background-color: #3a94b5; height: 8px;"></div>
+<template name="layout">
+	<div style="background-color: #3a94b5; height: 4px;"></div>
 		<div id="header-containertop" style="padding-top:5px;">
 			<div class="row" style="margin-bottom:5px;">
 				<a href="/" style="margin-top:7px;padding-top:5px;">
 					<img alt="Scholarify | Online Apprenticeships" src="{{rootPath}}logosmall.png" />
-				</a>	
-				<div class="btn-group" style="float:right;">
+				</a>
+				<div class="btn-group" style="float:right; margin-top: 8px;">
 					<button class="btn">
 						{{loginButtons}}
 					</button>
@@ -27,9 +27,13 @@
 							<hr style="margin:0px;">
 							<li><a href="{{userPath currentUser}}">My Profile</a></li>
 						{{/if}}
+						{{#if isAdmin}}
+							<hr style="margin:0px;">
+							<li><a href="{{adminPath}}">Admin Section</a></li>
+						{{/if}}
 						<hr style="margin:0px;">
 						<li><a href="{{rootPath}}" class="logout">Sign out</a></li>
-					</ul>	
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -37,14 +41,59 @@
 
 	{{{yield}}}
 
-	<div id="footer-section">
-		<div class="row">
-			<span><a href="/">Home</a></span>
-			<span> &middot; </span>
-			<span><a href="/about">About</a></span>
-			<span> &middot; </span>
-			<span><a href="/contact">Contact</a></span>
-		</div>
+	<!-- Footer -->
+    <div id="footer">
+    	<div class="footer-container grey">
+		        <div class="row">
+	        		<div class="seven columns">
+	        			<div class="row" style="margin-top:10px;">
+	        				<h5><span style="color:#33B3E2;">Scholarify</span> - crowd-reviewing engineering mastery. <br \> <small> Growing the next generation of makers.</small></h5>
+	        				<br \>
+	        				<ul>
+	        					<li>Silicon Valley <b>engineers explain</b> their <b>profession</b>.</li>
+	        					<li><b>Scholars submit masterpieces</b> to demonstrate their mastery of a profession.</li>
+	        					<li><b>Masters review masterpieces</b>, giving back to the community.</li>
+	        				</ul>
+	        			</div>
+	        			<div class="row" style="margin-top:30px;">
+		                	<span><a href="/">Home</a></span>
+							<span> &middot; </span>
+							<span><a href="/about">About</a></span>
+							<span> &middot; </span>
+							<span><a href="/contact">Contact</a></span>
+							<span> &middot; </span>
+							<span><a href="/terms">Terms</a></span>
+		                </div>
+		            </div>
+		            <div class="five columns">
+		            	<div class="well" style="margin-top:13px; margin-right:0px;">
+		            		<div class="row">
+		            			<div class="two columns">
+			            			<iframe class="twitter-follow" allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=Scholarify&amp;show_count=false&amp;show_screen_name=true" style="width:100px; height:20px;"></iframe>
+			            		</div> 
+			            		<div class="three columns">
+			            			<iframe allowtransparency="true" frameborder="0" scrolling="no"
+							       	src="https://platform.twitter.com/widgets/tweet_button.html?screen_name=Scholarify&amp;count=none&amp;text=%23crowdreviewing%20%23code%20%23mastery&amp;"
+							        style="width:100px; height:20px;"></iframe>
+			            		</div>
+		            		</div>
+		            		<hr>
+		            		<div class="row">
+		            			<div class="five columns">
+		            				<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2FScholarify&amp;send=false&amp;layout=standard&amp;width=300&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=80&amp;appId=487294791309701" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:80px;" allowTransparency="true"></iframe>
+		            			</div>
+		            		</div>
+		            	</div>			          
+			        </div>
+			    </div>
+	        </div>
+    	</div>
+    	<div class="footer-container">
+    		<div class="row">
+    			<br \>
+    			<p>&copy; Scholarify, Inc. 2013</p>
+    		</div>
+    	</div>
 	</div>
 </template>
 
