@@ -7,7 +7,7 @@ Deps.autorun( function () {
     Session.set("userId", Meteor.userId());
     Session.set("current_user", Meteor.user());
     var current_user = Meteor.user();
-    isAdmin = current_user && current_user.isAdmin;
+    var isAdmin = current_user && current_user.isAdmin;
     Session.set("admin", isAdmin);
     console.log(current_user);
     return
@@ -17,8 +17,9 @@ Deps.autorun( function () {
 /////// Helpers ////////
 
 function authorizeAdmin (context, page) {
-    var admin = Session.get("admin");
-    if (admin === false) {
+    var current_user = Meteor.user();
+    var isAdmin = current_user && current_user.isAdmin;
+    if (isAdmin === false) {
       context.redirect(Meteor.unauthorizedPath());
     }
 };
