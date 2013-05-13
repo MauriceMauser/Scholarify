@@ -79,6 +79,14 @@ Handlebars.registerHelper('masterpieceReviewsLink', function(text, _id) {
   );
 });
 
+Handlebars.registerHelper('masterpiecesLink', function(text) {
+    var profession = Session && Session.get("profession");
+    var professionId = profession && profession._id;
+  return new Handlebars.SafeString(
+    "<a href='/profession/" + professionId + "/masterpieces' class='btn btn-success btn-large'>" + text + "</a>"
+  );
+});
+
 ////////////////////////////
 
 
