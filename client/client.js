@@ -7,7 +7,7 @@ Deps.autorun( function () {
     Session.set("userId", Meteor.userId());
     Session.set("current_user", Meteor.user());
     var current_user = Meteor.user();
-    var isAdmin = current_user && current_user.isAdmin;
+    isAdmin = current_user && current_user.isAdmin;
     Session.set("admin", isAdmin);
     console.log(current_user);
     return
