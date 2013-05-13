@@ -31,6 +31,12 @@ function setProfile (context, page) {
     Session.set("isOwner", isOwner); 
 };
 
+function setMyProfile (context, page) {
+    var userId = Meteor.userId();
+    Session.set("profile", Meteor.user());
+    Session.set("isOwner", true); 
+};
+
 function setProfession (context, page) {
     var _id = context.params._id;
     Session.set("profession", Professions.findOne(_id));
@@ -83,6 +89,7 @@ Meteor.pages({
 
     '/': { to: 'professionsIndex', as: 'root' },
     '/profile/:_id': { to: 'profile', as: 'user', before: setProfile, nav: 'user_info' },
+    '/profile/:_id/my-masterpieces': { to: 'profile', as: 'myMasterpieces', before: setMyProfile, nav: 'my_masterpieces' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
     '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin, nav: 'inspire_backend' },
     '/professions/admin': { to: 'adminIndex', as: 'admin', before: authorizeAdmin },

@@ -2,7 +2,7 @@
 
 <template name="masterpiece"> 
 	<h2>Your Masterpiece</h2>
-	<p>Please elaborate how your masterpiece meets the following specifications.</p>
+	<p>Please elaborate whether your masterpiece meets the following specifications.</p>
   	<hr>
 	<br>
 	{{#each specification}}
@@ -10,7 +10,7 @@
   	{{/each}}
   	<hr>
   	<br>
-  	<a href="{{rootPath}}" class="well well-large btn btn-large btn-block btn-success submit" id="submit">Submit Project</a>
+  	<a href="{{myMasterpiecesPath}}" class="well well-large btn btn-large btn-block btn-success submit" id="submit">Submit Project</a>
 </template>
 
 <template name="spec_field"> 
