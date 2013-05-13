@@ -19,7 +19,7 @@ Deps.autorun( function () {
 function authorizeAdmin (context, page) {
     var current_user = Meteor.user();
     var isAdmin = current_user && current_user.isAdmin;
-    if (isAdmin === false) {
+    if (!isAdmin) {
       context.redirect(Meteor.unauthorizedPath());
     }
 };
