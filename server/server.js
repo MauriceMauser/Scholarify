@@ -1,6 +1,9 @@
-adminId = "TD6fZsJnH9uMZL7Ld";
+adminIdDevelopment = "TD6fZsJnH9uMZL7Ld";
+adminIdProduction = "nAX72uReF5zcipJpK";
 
 Meteor.startup(function() {
+	adminId = Meteor.users.findOne({_id: adminIdProduction}) ? adminIdProduction : adminIdDevelopment;
+
 	Meteor.users.update({_id: adminId},
                            {$set: {isAdmin: true} });
 
