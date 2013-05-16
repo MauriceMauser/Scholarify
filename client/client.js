@@ -96,7 +96,7 @@ Meteor.pages({
 
 	// Page values can be an object of options, a function or a template name string
 
-    '/': { to: 'professionsIndex', as: 'root' },
+    '/': { to: 'welcome', as: 'root' },
     '/profile/:_id': { to: 'profile', as: 'user', before: setProfile, nav: 'user_info' },
     '/profile/:_id/my-masterpieces': { to: 'profile', as: 'myMasterpieces', before: setMyProfile, nav: 'my_masterpieces' },
     '/professions': { to: 'professionsIndex', as: 'professions' },
@@ -112,6 +112,7 @@ Meteor.pages({
     '/reviews/:_id': { to: 'showReview', before: setReview, as: 'showReview' },
     '/about': { to: 'about', as: 'about' },
     '/contact': { to: 'contact', as: 'contact' },
+    '/master-application': { to: 'masterApplication', as: 'masterApplication' },
     '/401': { to: 'unauthorized'},
     '*': 'notFound'
   }, {
