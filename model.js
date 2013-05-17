@@ -92,10 +92,12 @@ Meteor.methods({
 			throw new Meteor.error(400, "Please fill out the form completely.");
 
 		if (Meteor.isServer) {
-			Email.send('mailer@scholarify.mailgun.org',
-                'maurice.mauser@scholarify.com',
-                'New Master Application!',
-                options.mailer_text);
+			Email.send({
+				from: 'mailer@scholarify.mailgun.org',
+				to: 'maurice.mauser@scholarify.com',
+				subject: 'New Master Application!',
+				text: options.mailer_text
+			});
 		}
 
 		return Applicants.insert({
