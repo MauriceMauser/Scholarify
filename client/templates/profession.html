@@ -216,16 +216,17 @@
 <!-- ////// PROFESSIONS ////// -->
 <template name="professionsIndex">
 	<div class="container" id="main-section">
-		<div class="card">
+		<div class="card" style="background: url(/images/textures/cream_dust.png);">
 			<div class="page">
-				<div class="row" style="min-height:1000px;">
-					<h2>Our Apprenticeships</h2>
-					<p><b>Scholarify</b> in one of the following<b> professions</b>:</p>			
-					<hr>
+				<div class="page-header">
+					<h3 style="color:#33B3E2; text-align: center;">Find your Profession</h3>
+					<br>
+				</div>
+				<div class="row" style="min-height:400px;">
+					<br>
 					{{#each professions}}
 						{{> professionPin }}
 					{{/each}}	
-					<hr>
 				</div>
 			</div>
 		</div>
