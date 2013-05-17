@@ -2,6 +2,8 @@ adminIdDevelopment = "TD6fZsJnH9uMZL7Ld";
 adminIdProduction = "nAX72uReF5zcipJpK";
 
 Meteor.startup(function() {
+	process.env.MAIL_URL = 'smtp://postmaster%40scholarify.mailgun.org:0eaita-fefl8@smtp.mailgun.org:587';
+
 	adminId = Meteor.users.findOne({_id: adminIdProduction}) ? adminIdProduction : adminIdDevelopment;
 
 	Meteor.users.update({_id: adminId},
