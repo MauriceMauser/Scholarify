@@ -50,6 +50,16 @@ Reviews.allow({
 	}
 });
 
+////// Applicants ////////
+
+Applicants = new Meteor.Collection("applicants");
+
+Applicants.allow({
+	insert: function () {
+		return false; //no cowboy insert -- use createApplicant method
+	}
+});
+
 ////////////////////////////
 
 /////// Methods ////////
@@ -70,6 +80,31 @@ Meteor.methods({
 				}
 			}
 		});
+	},
+	//Applicants
+	createApplicant: function (options) {
+		var options = options || {};
+		var userId = Meteor.userId();
+		if (! (typeof options.name === "string" && options.name.length && 
+			   typeof options.email === "string" && options.email.length &&
+			   typeof options.qualifications === "string" && options.qualifications.length &&
+   			   typeof options.project === "string" && options.project.length))
+			throw new Meteor.error(400, "Please fill out the form completely.");
+
+		if (Meteor.isServer) {
+			Email.send(options.email,
+                'maurice.mauser@scholarify.com',
+                'New Master Application!',
+                options.mailer_text);
+		}
+
+		return Applicants.insert({
+			owner: userId,
+			name: options.name,
+			email: options.email,
+			qualifications: options.qualifications,
+			project: options.project
+			});
 	},
 	//Professions
 	publishProfession: function (options) {
@@ -129,7 +164,22 @@ Meteor.methods({
 				review['owner'] = this.userId;
 		 	 }
 		return Reviews.insert(review);
-	}
+	},
+	//Mailers
+	sendEmail: function (to, from, subject, text) {
+	    check([to, from, subject, text], [String]);
+	    // Let other method calls from the same client start running,
+	    // without waiting for the email sending to complete.
+	    this.unblock();
+
+	    Email.send({
+	      to: to,
+	      from: from,
+	      subject: subject,
+	      text: text
+	    });
+  	}
 });
 
 ////////////////////////////
+

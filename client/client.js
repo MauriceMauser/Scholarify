@@ -567,4 +567,33 @@ Template.showReview.helpers({
 
 ////////////////////////////////////////////////////////
 
+///// MASTER APPLICATION ////////
+
+Template.masterApplication.events({
+    'click .apply': function (event, template) {
+        var name = template.find("#applicant_name").value;
+        var email = template.find("#applicant_mail").value;
+        var qualifications = template.find("#applicant_qualifications").value;
+        var project = template.find("#applicant_project").value;
+        var mailer_text = "Name: " + name + "; Email: " + email + " Qualifications: " + qualifications + "; Project: " + project + ".";
+
+        if (name.length && email.length && qualifications.length && project.length) {
+            Meteor.call('createApplicant', {
+                name: name,
+                email: email,
+                qualifications: qualifications,
+                project: project,
+                mailer_text: mailer_text
+                }, function (error) {
+                    if (! error) { console.log("New applicant."); }
+                }
+            );
+        } else {
+            Session.set("publishError", "An application requires a name, email, qualifications, and a project.");
+        }
+    }
+});
+
+/////////////////////////////////
+
 
