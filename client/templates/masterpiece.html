@@ -1,23 +1,31 @@
 <!-- ////////// MASTERPIECE ///////////// -->
 
 <template name="masterpiece"> 
-	<h2>Your Masterpiece</h2>
-	<p>Please elaborate whether your masterpiece meets the following specifications.</p>
-  	<hr>
-	<br>
+	<div class="row">
+		<div class="page-header">
+			<h2>Your Masterpiece</h2>
+			<p>Please elaborate whether your masterpiece meets the following specifications.</p>
+			<br>
+		</div>
+	</div>
 	{{#each specification}}
   		{{> spec_field}}
   	{{/each}}
-  	<hr>
-  	<br>
-  	<a href="{{myMasterpiecesPath}}" class="well well-large btn btn-large btn-block btn-success submit" id="submit">Submit Project</a>
+  	<div class="row">
+  		<div class="twelve columns">
+  			<br>
+  			<a href="{{myMasterpiecesPath}}" class="well well-large btn btn-large btn-block btn-success submit" id="submit">Submit Project</a>
+  		</div>
+  	</div>
 </template>
 
 <template name="spec_field"> 
-	<div class="well">
-		<h4>{{name}}</h4>
-		<p>{{description}}</p>
-		<input class="submission" id="{{_id}}" type="text" />
+	<div class="row well" style="background:transparent;">
+		<div class="twelve columns">
+			<h4>{{name}}</h4>
+			<p>{{description}}</p>
+			<input class="submission" id="{{_id}}" type="text" />
+		</div>
 	</div>
 </template>
 
