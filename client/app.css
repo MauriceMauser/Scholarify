@@ -5579,8 +5579,6 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
     height: inherit;
     border: 1px solid #dddddd;
     padding: 1px;
-    padding-top: 10px;
-    padding-bottom: 5px;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -webkit-backface-visibility: hidden;
