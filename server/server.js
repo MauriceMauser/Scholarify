@@ -1,4 +1,4 @@
-adminIdDevelopment = "TD6fZsJnH9uMZL7Ld";
+adminIdDevelopment = "Ma3midnRxmMcbs38S";
 adminIdProduction = "nAX72uReF5zcipJpK";
 
 Meteor.startup(function() {

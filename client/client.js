@@ -75,7 +75,7 @@ Handlebars.registerHelper('showReviewLink', function(text, _id) {
 
 Handlebars.registerHelper('masterpieceReviewsLink', function(text, _id) {
   return new Handlebars.SafeString(
-    "<a href='/masterpieces/" + _id + "/reviews'>" + text + "</a>"
+    "<a href='/masterpieces/" + _id + "/reviews' class='btn btn-success btn-large' style='float:right; width:100%'>" + text + "</a>"
   );
 });
 

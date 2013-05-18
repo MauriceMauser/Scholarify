@@ -5,7 +5,7 @@
 	<div class="container">
 	    <div class="card" style="min-height:700px;">
 	    	<div class="tabbable">
-				<ul class="nav nav-tabs">
+				<ul class="nav nav-pills">
 					<li class="{{navClassFor 'user_info'}}"><a href="#tabA" data-toggle="tab"> 	Personal Information </a></li>
 					<li class="{{navClassFor 'my_masterpieces'}}"><a href="#tabB" data-toggle="tab"> My Masterpieces </a></li>
 					<li class="{{navClassFor 'my_reviews'}}"><a href="#tabC" data-toggle="tab">	My Reviews </a></li>
@@ -23,6 +23,7 @@
 
 <template name="user_info">
 	<div class="tab-pane {{navClassFor 'user_info'}}" id="tabA">
+	<br>
 	{{#if editing}}
 		{{> edit_profile}}
 	{{else}}
@@ -72,15 +73,14 @@
 				<textarea id="experience" class="field" style="width:100%;height:250px;">{{this.profile.experience}}</textarea>
 			</div>
 		</div>
-    <br>
-  	<div class="twelve columns">
-			<a href="" class="btn btn-success btn-block save" id="save">Save Profile</a>
-  	</div>
-	</div>
+    	<br>
+	  	<div class="twelve columns">
+				<a href="" class="btn btn-success btn-block save" id="save">Save Profile</a>
+	  	</div>
 </template>
 
 <template name="show_profile">
-	<div class="row">
+	<div class="row" style="background:transparent;">
      	<div class="three columns">
   			<img src="{{rootPath}}{{this.profile.imageUrl}}">
       	</div>
@@ -114,69 +114,67 @@
        		</div>
        		<hr>
 		</div>
-		{{#if isOwner}}
-  		<br>
-  		<div class="twelve columns">
-			<a href="" class="btn btn-info btn-block edit" id="edit">Edit Profile</a>
-  		</div>
-		{{/if}}
     </div>
+    {{#if isOwner}}
+	    <div class="row">
+	    	<br>
+	  		<div class="twelve columns">
+				<a href="" class="btn btn-info btn-large btn-block edit" id="edit">Edit Profile</a>
+	  		</div>
+	    </div>
+    {{/if}}
 </template>
 
 <template name="my_masterpieces">
 	<div class="tab-pane {{navClassFor 'my_masterpieces'}}" id="tabB">
-			<div class="row">
-		    	<h3>My Masterpieces</h3>
-		        <hr>
-		        	<div>
-		        	{{#each masterpieces}}
-		        		{{> my_masterpiece}}
-		        	{{/each}}
-		          </div>
-            <br>
-            <hr>
-		  </div>
-	      <div class="row">
+		<div class="row page-header">
+			<h2>My Masterpieces</h2>
+		</div>
+		<br>
+		<div>
+			{{#each masterpieces}}
+		        {{> my_masterpiece}}
+		    {{/each}}
+		</div>
+	    <div class="row">
 	        <div class="twelve columns">
 	        	<h5>Browse professions and create a new Masterpiece:</h5>
 	        	<a href="{{professionsPath}}" class="btn btn-success btn-large">Browse Professions</a>
 	        </div>
-	      </div>
-	      <br>
-	      <hr>
+	    </div>
 	</div>
 </template>
 
 <template name="my_masterpiece">
-	<div class="well">
-		<div class="row">
-			<div class="seven columns">
-				<h4>{{profession_title professionId}}</h4>
-			</div>
+	<div class="well row" style="background: url(/images/textures/cream_dust.png);">
+		<div class="row page-header" style="margin-top:5px;">
 			<div class="five columns">
-				<div class="btn">
+				<h4>{{profession_title this.professionId}}</h4>
+			</div>
+			<div class="seven columns">
+				<div style="margin-top:5px;">
 					{{{masterpieceReviewsLink 'Show Reviews' this._id}}}
 				</div>
 			</div>
-      		<hr>
       	</div>
+      	<br style="margin-top:3px;">
+      	{{#each this.chapters}}
       	<div class="row">
-	      	{{#each this.chapters}}
-	      		{{> chapter}}
-	      	{{/each}}
+      		{{> chapter}}
       	</div>
+      	{{/each}}
 	</div>
 </template>
 
 <template name="chapter">
-	<div>
+	<div class="five columns">
         <p><b>{{name}}</b></p>
         <p>{{description}}</p>
     </div>
-    <div>
+    <div class="seven columns well" style="background: rgba(247, 245, 245, 0.5);">
        <p>{{submission}}</p>
     </div>
-    <hr>
+    <hr style="border-color: #eee;">
 </template>
 
 <template name="my_reviews">
