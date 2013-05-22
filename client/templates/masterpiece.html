@@ -2,7 +2,7 @@
 
 <template name="masterpiece"> 
 	<div class="row">
-		<div class="page-header">
+		<div class="twelve columns page-header">
 			<h2>Your Masterpiece</h2>
 			<p>Please elaborate whether your masterpiece meets the following specifications.</p>
 			<br>
@@ -34,26 +34,30 @@
 <template name ="masterpieceIndex">
 	{{#with profession}}
 	<div class="container">
-		<div class="row">
-			<div class="card"  style="min-height:700px;">
-				<h1>Masterpieces <small>of {{title}}</small></h1>
-				<hr>
-			  	<div>
-	          		{{#each masterpieces}}
-	          		<div class="row">
+		<div class="card"  style="min-height:700px;">
+			<div class="row page-header">
+				<div class="twelve columns">
+					<h4><small>{{title}}</small></h4>
+					<h2>Masterpieces</h2>
+				</div>
+			</div>
+		  	<div class="row" style="margin-top: 15px;">
+		  		<div class="twelve columns">
+		  			{{#each masterpieces}}
+	          		<div class="row" style="margin-top:10px;">
 	          			<div class="nine columns">
 	          				{{> my_masterpiece}}
 	          			</div>
 	          			<div class="three columns">
-	          				<div class="btn">
+	          				<div style="margin-top:30px;">
 	          					{{{newReviewLink 'Review Masterpiece' this._id}}}
 	          				</div>
 	          			</div>	
 	          		</div>	          			
 	          		{{/each}}
-	          	</div>
-	        </div>
-		</div>
+		  		</div>
+          	</div>
+        </div>
 	</div>
 	{{/with}}
 </template>

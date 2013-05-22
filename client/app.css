@@ -4879,7 +4879,7 @@ a.thumbnail:hover {
 }
 .modal-backdrop {
   position: fixed;
-  top: 0;
+  top: 0px;
   right: 0;
   bottom: 0;
   left: 0;

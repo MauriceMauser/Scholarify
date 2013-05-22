@@ -28,13 +28,15 @@
 			</div>
 		</section>
 		<div class="container">
-			<div class="card" style="min-height:700px;background: url(/images/textures/cream_dust.png)">
-				<div class="row-fluid">
-					<div class="twelve columns">
-						<div class="tab-content">
-							{{> inspire}}
-							{{> learn}}
-							{{> proof}}
+			<div class="row">
+				<div class="card" style="min-height:700px;background: url(/images/textures/cream_dust.png)">
+					<div class="row-fluid">
+						<div class="twelve columns">
+							<div class="tab-content">
+								{{> inspire}}
+								{{> learn}}
+								{{> proof}}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -94,8 +96,8 @@
 
 <template name="learn">
 	<div class="tab-pane {{navClassFor 'learn'}}" id="tabB">
-		<div class="row">
-			<div class="page-header">
+		<div class="row page-header">
+			<div class="twelve columns">
 				<h4><small>{{title}}</small></h4>
 				<h2>Study Materials</h2>
 				<br>
@@ -128,9 +130,9 @@
 		{{#if isCreator}}
 		<div class="row">
 			<div class="twelve columns">
-			<br>
-			<hr>
-			<a href="" class="btn btn-danger edit">Edit Specs</a>
+				<br>
+				<hr>
+				<a href="" class="btn btn-danger edit">Edit Specs</a>
 			</div>
 		</div>
 		{{/if}}

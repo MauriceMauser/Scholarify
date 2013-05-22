@@ -138,8 +138,9 @@
 		</div>
 	    <div class="row">
 	        <div class="twelve columns">
-	        	<h5>Browse professions and create a new Masterpiece:</h5>
-	        	<a href="{{professionsPath}}" class="btn btn-success btn-large">Browse Professions</a>
+	        	<h5>Find your professsion, create a new Masterpiece:</h5>
+	        	<br>
+	        	<a href="{{professionsPath}}" class="btn btn-info btn-large" style="margin-bottom:40px; width:100%;">Browse Professions</a>
 	        </div>
 	    </div>
 	</div>
@@ -172,18 +173,22 @@
         <p>{{description}}</p>
     </div>
     <div class="seven columns well" style="background: rgba(247, 245, 245, 0.5);">
-       <p>{{submission}}</p>
+       {{submission}}
     </div>
     <hr style="border-color: #eee;">
 </template>
 
 <template name="my_reviews">
 	<div class="tab-pane {{navClassFor 'my_reviews'}}" id="tabC">
-		<div class="container">
-			<div class="row">
-				<div class="card" style="min-height:700px;">
+		<div class="row">
+			<div class="twelve columns">
+				<div class="row page-header">
+					<h2>My Masterpieces</h2>
+				</div>
+				<br>
 				{{#each reviews}}
-					<div class="row">
+					<div class="well" style="background:transparent;">
+						<div class="row" style="background:transparent;">
 							<div class="twelve columns">
 								<h2>Review</h2><p>for {{masterpiece_title this.masterpieceId}}</p>
 								<hr>
@@ -197,19 +202,42 @@
 								<hr>
 							</div>
 						</div>
-						<hr>
-						<br>
 				{{/each}}
 				<div class="row">
 				        <div class="twelve columns">
-				        	<h5>Review more projects to increase your reputation:</h5>
-				        	{{{masterpiecesLink 'Review Projects'}}}
+				        	<h5>Review more projects, increase your reputation:</h5>
+				        	<a href="#reviewModal" class="btn btn-large btn-block btn-info" style="width:100%" data-toggle="modal">Review Projects</a>
 				        </div>
 						<br>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+	<div id="reviewModal" class="modal fade" role="dialog" tabindex="-1">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">x</button>
+			<h3 id="myModalLabel">Select a Profession</h3>
+		</div>
+		<div class="modal-body">
+			<center>
+				{{#each professions}}
+					<div class="well" style="background:transparent;">
+						<div class="row-fluid">
+							<div class="six columns">
+								<h4 style="color:#666;">{{title}}</h4>
+							</div>
+							<div class="six columns">
+								{{{masterpiecesLink 'Review Masterpieces' this._id}}}
+							</div>
+						</div>
+					</div>
+				{{/each}}
+			</center>
+		</div>
+	</div>
 </template>
+
 
 <!-- ///////////////////////// -->

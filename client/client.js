@@ -63,7 +63,7 @@ Handlebars.registerHelper("navClassFor", function (nav, options) {
 
 Handlebars.registerHelper('newReviewLink', function(text, _id) {
   return new Handlebars.SafeString(
-    "<a href='/masterpieces/" + _id + "/review'>" + text + "</a>"
+    "<a href='/masterpieces/" + _id + "/review' class='btn btn-block btn-large btn-info'>" + text + "</a>"
   );
 });
 
@@ -79,11 +79,9 @@ Handlebars.registerHelper('masterpieceReviewsLink', function(text, _id) {
   );
 });
 
-Handlebars.registerHelper('masterpiecesLink', function(text) {
-    var profession = Session && Session.get("profession");
-    var professionId = profession && profession._id;
+Handlebars.registerHelper('masterpiecesLink', function(text, _id) {
   return new Handlebars.SafeString(
-    "<a href='/profession/" + professionId + "/masterpieces' class='btn btn-success btn-large'>" + text + "</a>"
+    "<a href='/profession/" + _id + "/masterpieces' class='btn btn-info btn-large btn-block' id='reviewBtn' style='margin-top:10px;'>" + text + "</a>"
   );
 });
 
@@ -553,6 +551,15 @@ Template.my_reviews.helpers({
         var professionId = masterpiece.professionId;
         var profession = Professions.findOne({_id: professionId});
         return profession && profession.title;
+    },
+    professions: function () {
+        return Professions.find();
+    }
+});
+
+Template.my_reviews.events({
+    'click #reviewBtn': function () {
+        $('#reviewModal').modal('hide')
     }
 });
 
