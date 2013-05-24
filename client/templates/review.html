@@ -71,32 +71,41 @@
 <!-- INDEX -->
 <template name="masterpieceReviews">
 	{{#with masterpiece}}
-	<div class="card" style="min-height:700px;">
-		<div class="row">		        
-	    	<h3>Reviews</h3>
-	        <hr>
-	    </div>
-	    <div class="row">
-	    	{{#each reviews}}
-	    		{{> showReviewSummary}}
-	    	{{/each}}	
-	  	</div>
+	<div class="container">
+		<div class="row">
+			<div class="card" style="min-height:700px;">
+				<div class="row page-header">
+					<div class="twelve columns">
+				    	<h3>Reviews</h3>
+					</div>		        
+			    </div>
+			    <br>
+			    {{#each reviews}}
+			    <div class="row">
+			    	<div class="twelve columns">
+			    		{{> showReviewSummary}}
+			    	</div>
+			  	</div>
+			  	{{/each}}
+			</div>
+		</div>
 	</div>
 	{{/with}}
 </template>
 
 <template name="showReviewSummary">
-	<div class="row">
-    	<div class="twelve columns well">
-	    	<h5>
-	      		Feedback
-	    	</h5>
-	    	<p>Your Score: X</p>
-	    	<hr>
-	    	<div class="btn">
-	    		{{{showReviewLink 'Show Feedback' this._id}}}
-	    	</div>
-    	</div>	
+	<div class="well" style="background: url(/images/textures/cream_dust.png)">
+		<div class="row">
+			<div class="six columns">
+				<h5>
+		      		Feedback
+		    	</h5>
+		    	<p>Your Score: X</p>
+			</div>
+			<div class="six columns">
+				{{{showReviewLink 'Show Feedback' this._id}}}
+			</div>
+		</div>
   	</div>
 </template>
 

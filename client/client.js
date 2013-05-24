@@ -69,7 +69,7 @@ Handlebars.registerHelper('newReviewLink', function(text, _id) {
 
 Handlebars.registerHelper('showReviewLink', function(text, _id) {
   return new Handlebars.SafeString(
-    "<a href='/reviews/" + _id + "'>" + text + "</a>"
+    "<a href='/reviews/" + _id + "' class='btn btn-large btn-block btn-info' style='margin-top:25px;'>" + text + "</a>"
   );
 });
 
