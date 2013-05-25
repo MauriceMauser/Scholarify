@@ -512,7 +512,9 @@ Template.new_review.events({
         for (var i = 0; i < chapters.length; ++i) {
             var chapter = chapters[i];
             var qual_review = template.find("#" + chapter._id).value;
+            var quant_review = $("#" + chapter._id + ".star").raty('score') || 0;
             chapter['review'] = qual_review;
+            chapter['score'] = quant_review;
             review_chapters.push(chapter);
         };
         review['chapters'] = review_chapters;
@@ -527,6 +529,11 @@ Template.new_review.events({
         } 
     }
 });
+
+Template.newChapterReview.rendered = function () { 
+    $('.star').raty();
+};
+
 
 ////// INDEX ////////////
 

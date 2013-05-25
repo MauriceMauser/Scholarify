@@ -34,34 +34,24 @@
 		    	<h5>
 		      		{{name}}
 		    	</h5>
-		    	<p>
+		    	<p><i>
 		    		{{description}}
-		    	</p>
+		    	</i></p>
 		    	<div class="well" style="background:transparent; min-height:75px;">
 		    		{{submission}}
 		    	</div>
 	    	</div>
 	    	<div class="seven columns">
-	    		<h5>Your Feedback:</h5>
-	    		<p>Does the project meet the specification: <b>{{name}}</b>?</p>    		
-			      <textarea id="{{_id}}" class="review" style="width:100%;"></textarea>
-			    <hr>
+	    		<div class="row">
+		    		<h5>Your Feedback:</h5>
+		    		<p>Does the project meet the specification: <b><i>{{name}}</i></b>?</p>    		
+				      <textarea id="{{_id}}" class="review" style="width:100%;"></textarea>
+				</div>
 			    <div class="row">
-			    	<span class="four columns"><h5>Your Score: </h5></span>
-				    <span class="three columns">
-				    	<div class="btn-group">
-							<button class="btn dropdown-toggle btn-block btn-info" data-toggle="dropdown">
-								<span>Your Score</span>
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li id="1"><a href="">Insufficient</a></li>
-								<li id="2"><a href="">Sufficient</a></li>
-								<li id="3"><a href="">Good</a></li>
-								<li id="4"><a href="">Excellent</a></li>
-							</ul>	
-						</div>
-					</span>
+			    	<h5>Your Score: </h5>
+			    	<p>Please rate from <b>0 stars</b> (<i>insufficient</i>) to <b>5 stars</b> (<i>brilliant</i>):</p>
+	    			<div class="star" id="{{_id}}"></div>
+	    			<br>
 				</div>
 	     	</div> 
   		</div>
@@ -155,10 +145,14 @@
 			      <p>{{review}}</p>
 			    <hr>
 			    <div class="row">
-			    	<span class="three columns"><h5>Your Score: </h5></span>
-				    <span class="four columns">
-				    	<p>Insufficien|Sufficient|Good|Excellent</p>
-					</span>
+			    	<div class="three columns"><h5>Your Score: </h5></div>
+				    <div class="four columns">
+				    	<!--div id="star"></div>
+				    	<div id="star"></div>
+				    	<div id="star"></div>
+				    	<div id="star"></div>
+				    	<div id="star"></div-->
+					</div>
 				</div>
 	     	</div> 
 	  	</div>
