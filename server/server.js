@@ -1,5 +1,5 @@
 adminIdDevelopment = "Ma3midnRxmMcbs38S";
-adminIdProduction = "nAX72uReF5zcipJpK";
+adminIdProduction = "kqjMpabZNdXWQmTMw";
 
 Meteor.startup(function() {
 	process.env.MAIL_URL = 'smtp://postmaster%40scholarify.mailgun.org:0eaita-fefl8@smtp.mailgun.org:587';
