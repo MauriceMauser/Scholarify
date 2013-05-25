@@ -154,7 +154,9 @@
 			</div>
 			<div class="seven columns">
 				<div style="margin-top:5px;">
-					{{{masterpieceReviewsLink 'Show Reviews' this._id}}}
+					{{#if isMasterpieceOwner this._id}}
+						{{{masterpieceReviewsLink 'Show Reviews' this._id}}}
+					{{/if}}
 				</div>
 			</div>
       	</div>

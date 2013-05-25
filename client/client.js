@@ -481,6 +481,11 @@ Template.my_masterpiece.helpers({
         var professionId = professionId;
         var profession = Professions.findOne({_id: professionId});
         return profession && profession.title;
+    },
+    isMasterpieceOwner: function (masterpieceId) {
+        var masterpiece = Masterpieces.findOne({_id: masterpieceId});
+        var owner = masterpiece && masterpiece.owner;
+        return owner && (owner == Meteor.userId());
     }
 });
 
@@ -493,7 +498,8 @@ Template.masterpieceIndex.helpers({
     masterpieces: function () {
         var profession = Session.get("profession");
         var professionId = profession && profession._id;
-        return Masterpieces.find({professionId: professionId});
+        var current_user = Meteor.user();
+        return Masterpieces.find({professionId: professionId, owner: {$not: current_user}});
     }
 });
 

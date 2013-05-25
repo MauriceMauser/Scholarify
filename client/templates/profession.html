@@ -125,7 +125,11 @@
 
 <template name="proof">
 	<div class="tab-pane {{navClassFor 'proof'}}" id="tabC">
-		{{> masterpiece }}
+		<div class="row-fluid">
+			<div class="twelve columns">
+				{{> masterpiece }}
+			</div>
+		</div>
 
 		{{#if isCreator}}
 		<div class="row">
