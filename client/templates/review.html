@@ -17,11 +17,7 @@
 		  				{{/each}}
 					</div>
 				</div>
-				<div class="row">
-					<div class="twelve columns">
-						<a href="{{rootPath}}" class="btn btn-large btn-block btn-success submit">Submit Review</a>
-					</div>					
-				</div>
+				{{{reviewMoreLink 'Submit Review'}}}
 			</div>
 		</div>
 	</div>
@@ -44,7 +40,7 @@
 	    	<div class="seven columns">
 	    		<div class="row">
 		    		<h5>Your Feedback:</h5>
-		    		<p>Does the project meet the specification: <b><i>{{name}}</i></b>?</p>    		
+		    		<p>Does the project meet the specification: <b><i>{{name}}</i></b>?</p>
 				      <textarea id="{{_id}}" class="review" style="width:100%;"></textarea>
 				</div>
 			    <div class="row">
