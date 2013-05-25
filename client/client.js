@@ -89,7 +89,7 @@ Handlebars.registerHelper('reviewMoreLink', function(text) {
     var masterpiece =  Session && Session.get("masterpiece") || Masterpieces.findOne({_id: _id});
     var professionId = masterpiece && masterpiece.professionId;
   return new Handlebars.SafeString(
-    "<a href='/profession/" + professionId + "/masterpieces' class='btn btn-info btn-large btn-block' id='reviewBtn' style='margin-top:10px;'>" + text + "</a>"
+    "<a href='/profession/" + professionId + "/masterpieces' class='btn btn-info btn-large btn-block submit' id='reviewBtn' style='margin-top:10px;'>" + text + "</a>"
   );
 });
 
@@ -586,6 +586,22 @@ Template.showReview.helpers({
     }
 });
 
+Template.showReviewSummary.rendered = function () {
+    $('.star').raty();
+    var review = this && this.data;
+    var aggScore = 0;
+    var chapters = review && review.chapters;
+    for (var i = 0; i < chapters.length; ++i) {
+        var chapter = chapters[i];
+        aggScore += chapter['score'];
+    };
+    var avgScore = Math.round(aggScore / chapters.length);
+    if (avgScore) {
+        console.log(avgScore);
+        $('.star').raty('score', avgScore);
+    };
+    $('.star').raty('readOnly', true);  
+};
 
 ////////////////////////////////////////////////////////
 
