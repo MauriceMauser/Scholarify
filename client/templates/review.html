@@ -122,32 +122,39 @@
 </template>
 
 <template name="showChapterReview">
-	<div class="twelve columns well" style="background: url(images/textures/cream_dust.png)">
-	    	<div class="five columns">
+	<div class="twelve columns well" style="background: url(/images/textures/cream_dust.png)">
+	    	<div class="four columns well" style="background:#fcfcfc;">
 		    	<h5>
 		      		{{name}}
 		    	</h5>
-		    	<p>
+		    	<p style="font-color:#c1c1c1;"><i>
 		    		{{description}}
-		    	</p>
-		    	<hr>
-		    	<p>
-		    		{{submission}}
-		    	</p>
+		    	</i></p>
+		    	<div class="well" style="background:transparent;">
+		    		<p style="font-color:#c1c1c1;"><i>
+			    		{{submission}}
+			    	</i></p>
+		    	</div>
 	    	</div>
-	    	<div class="seven columns">
-	    		<h5>Feedback:</h5>
-	    		<p>Does your project meet the specification: <b>{{name}}</b>?</p>    		
-			      <p>{{review}}</p>
-			    <hr>
-			    <div class="row">
-			    	<div class="three columns"><h5>Your Score: </h5></div>
-				    <div class="four columns">
-				    	<!--div id="star"></div>
-				    	<div id="star"></div>
-				    	<div id="star"></div>
-				    	<div id="star"></div>
-				    	<div id="star"></div-->
+	    	<div class="seven columns offset one">
+	    		<div class="row">
+	    			<div class="twelve columns">
+	    				<h5>Feedback:</h5>
+	    				<p><i>Does your project meet the specification: <b>{{name}}</b>?</i></p>
+	    				<hr>
+	    			</div>
+	    		</div>
+	    		<div class="row">
+				    <div class="twelve columns">
+					   	<div class="star" id="{{this._id}}"></div>
+					</div>
+				</div>
+				<br>
+				<div class="row" style="margin-top:10px;">
+					<div class="twelve columns">
+					    <div class="well" style="background:#fcfcfc;">
+							{{review}}
+					    </div>
 					</div>
 				</div>
 	     	</div> 

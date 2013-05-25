@@ -597,10 +597,18 @@ Template.showReviewSummary.rendered = function () {
     };
     var avgScore = Math.round(aggScore / chapters.length);
     if (avgScore) {
-        console.log(avgScore);
         $('.star').raty('score', avgScore);
     };
     $('.star').raty('readOnly', true);  
+};
+
+Template.showChapterReview.rendered = function () {
+    var reviewChapter = this && this.data;
+    var score = reviewChapter && reviewChapter.score;
+    var chapterId = reviewChapter && reviewChapter._id;
+    $(".star" + "#" + chapterId).raty();
+    $(".star" + "#" + chapterId).raty('score', score);
+    $(".star" + "#" + chapterId).raty('readOnly', true);  
 };
 
 ////////////////////////////////////////////////////////

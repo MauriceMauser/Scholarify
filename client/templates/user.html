@@ -84,7 +84,7 @@
      	<div class="three columns">
   			<img src="{{rootPath}}{{this.profile.imageUrl}}">
       	</div>
-      	<div class="nine columns">
+      	<div class="nine columns well" style="background:transparent;">
         	<div class="row">
         		<div class="nine columns">
 					<h5 id="name">{{this.profile.name}}</h5>
@@ -181,40 +181,38 @@
 <template name="my_reviews">
 	<div class="tab-pane {{navClassFor 'my_reviews'}}" id="tabC">
 		<div class="row">
-			<div class="twelve columns">
-				<div class="row page-header">
-					<h2>My Masterpieces</h2>
-				</div>
-				<br>
-				{{#each reviews}}
-					<div class="well" style="background:transparent;">
-						<div class="row" style="background:transparent;">
-							<div class="twelve columns">
-								<h2>Review</h2><p>for {{masterpiece_title this.masterpieceId}}</p>
-								<hr>
-							</div>
-						</div>
-						<div class="row">
-							<div class="twelve columns">
-								{{#each this.chapters}}
-									{{> showChapterReview }}
-				  				{{/each}}
-								<hr>
-							</div>
-						</div>
-				{{/each}}
+			<div class="twelve columns page-header">
+				<h2>My Masterpieces</h2>
+			</div>
+		</div>
+		{{#each reviews}}
+		<div class="row well" style="background:#fcfcfc;">
+			<div class="twelve columns" style="background: transparent;">
 				<div class="row">
-				        <div class="twelve columns">
-				        	<h5>Review more projects, increase your reputation:</h5>
-				        	<a href="#reviewModal" class="btn btn-large btn-block btn-info" style="width:100%" data-toggle="modal">Review Projects</a>
-				        </div>
-						<br>
+					<div class="twelve columns">
+						<h4><small>{{masterpiece_title this.masterpieceId}}</small></h4>
+						<h3>Review</h3>
+						<hr>
+					</div>
+				</div>		
+				<div class="row">
+					<div class="twelve columns">
+						{{#each this.chapters}}
+							{{> showChapterReview }}
+		  				{{/each}}
+					</div>
 				</div>
 			</div>
 		</div>
+		{{/each}}
+		<div class="row" style="margin-bottom:30px;">
+	        <div class="twelve columns">
+	        	<h5>Review more projects, increase your reputation:</h5>
+	        	<a href="#reviewModal" class="btn btn-large btn-block btn-info" style="width:100%" data-toggle="modal">Review Projects</a>
+	        </div>
+			<br>
+		</div>
 	</div>
-
-
 	<div id="reviewModal" class="modal fade" role="dialog" tabindex="-1">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">x</button>
