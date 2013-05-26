@@ -207,13 +207,26 @@
 			</div>
 		</div>
 		{{/each}}
-		<div class="row" style="margin-bottom:30px;">
-	        <div class="twelve columns">
-	        	<h5>Review more projects, increase your reputation:</h5>
-	        	<a href="#reviewModal" class="btn btn-large btn-block btn-info" style="width:100%" data-toggle="modal">Review Projects</a>
-	        </div>
-			<br>
-		</div>
+		{{#if isMaster}}
+			<div class="row" style="margin-bottom:30px;">
+		        <div class="twelve columns">
+		        	<h5>Review more projects, increase your reputation:</h5>
+		        	<a href="#reviewModal" class="btn btn-large btn-block btn-info" style="width:100%" data-toggle="modal">Review Projects</a>
+		        </div>
+				<br>
+			</div>
+			{{else}}
+			<div class="row">
+				<div class="twelve columns well" style="background:transparent;" id="master_start">
+					<h5>Apply as <b style="color:#33b3e2;">Master</b> <small>invite-only</small></h5>
+					<ul>
+						<li>Contribute. Review Masterpieces. Give Feedback.</li>
+					</ul>
+					<p>You can be <b>invited</b> to review <b>by another Master</b> or <b>after applying</b>.</p>
+					<a href="{{masterApplicationPath}}" class="btn btn-large btn-block btn-info">Request Invitation</a>
+				</div>
+			</div>
+		{{/if}}
 	</div>
 	<div id="reviewModal" class="modal fade" role="dialog" tabindex="-1">
 		<div class="modal-header">
