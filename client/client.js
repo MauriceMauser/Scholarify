@@ -520,6 +520,11 @@ Template.new_review.helpers({
     chapters: function () {
         var masterpiece = Session.get("masterpiece");
         return masterpiece && masterpiece.chapters;
+    },
+    isMaster: function () {
+        var current_user = Meteor.user();
+        var isMaster = current_user && current_user.isMaster;
+        return isMaster
     }
 });
 
