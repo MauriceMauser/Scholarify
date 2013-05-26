@@ -182,32 +182,32 @@
 
 <template name="my_reviews">
 	<div class="tab-pane {{navClassFor 'my_reviews'}}" id="tabC">
-		<div class="row">
-			<div class="twelve columns page-header">
-				<h2>My Masterpieces</h2>
+		{{#if isMaster}}
+			<div class="row">
+				<div class="twelve columns page-header">
+					<h2>My Reviews</h2>
+				</div>
 			</div>
-		</div>
-		{{#each reviews}}
-		<div class="row well" style="background:#fcfcfc;">
-			<div class="twelve columns" style="background: transparent;">
-				<div class="row">
-					<div class="twelve columns">
-						<h4><small>{{masterpiece_title this.masterpieceId}}</small></h4>
-						<h3>Review</h3>
-						<hr>
-					</div>
-				</div>		
-				<div class="row">
-					<div class="twelve columns">
-						{{#each this.chapters}}
-							{{> showChapterReview }}
-		  				{{/each}}
+			{{#each reviews}}
+			<div class="row well" style="background:#fcfcfc;">
+				<div class="twelve columns" style="background: transparent;">
+					<div class="row">
+						<div class="twelve columns">
+							<h4><small>{{masterpiece_title this.masterpieceId}}</small></h4>
+							<h3>Review</h3>
+							<hr>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="twelve columns">
+							{{#each this.chapters}}
+								{{> showChapterReview }}
+			  				{{/each}}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		{{/each}}
-		{{#if isMaster}}
+			{{/each}}
 			<div class="row" style="margin-bottom:30px;">
 		        <div class="twelve columns">
 		        	<h5>Review more projects, increase your reputation:</h5>
@@ -215,7 +215,7 @@
 		        </div>
 				<br>
 			</div>
-			{{else}}
+		{{else}}
 			<div class="row">
 				<div class="twelve columns well" style="background:transparent;" id="master_start">
 					<h5>Apply as <b style="color:#33b3e2;">Master</b> <small>invite-only</small></h5>
