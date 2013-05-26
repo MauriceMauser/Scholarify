@@ -17,7 +17,20 @@
 		  				{{/each}}
 					</div>
 				</div>
-				{{{reviewMoreLink 'Submit Review'}}}
+				{{#if isMaster}}
+					{{{reviewMoreLink 'Submit Review'}}}
+				{{else}}
+					<div class="row">
+						<div class="twelve columns well" style="background:transparent;" id="master_start">
+							<h5>Apply as <b style="color:#33b3e2;">Master</b> <small>invite-only</small></h5>
+							<ul>
+								<li>Contribute. Review Masterpieces. Give Feedback.</li>
+							</ul>
+							<p>You can be <b>invited</b> to review <b>by another Master</b> or <b>after applying</b>.</p>
+							<a href="{{masterApplicationPath}}" class="btn btn-large btn-block btn-info">Request Invitation</a>
+						</div>
+					</div>
+				{{/if}}
 			</div>
 		</div>
 	</div>

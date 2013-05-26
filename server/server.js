@@ -7,7 +7,7 @@ Meteor.startup(function() {
 	adminId = Meteor.users.findOne({_id: adminIdProduction}) ? adminIdProduction : adminIdDevelopment;
 
 	Meteor.users.update({_id: adminId},
-                           {$set: {isAdmin: true} });
+                           {$set: {isAdmin: true, isMaster: true} });
 
 	if (Professions.find().count() > 0) return;
 
@@ -41,5 +41,5 @@ Meteor.publish("reviews", function() {
 //// USERS ////
 Meteor.publish("userData", function () {
   return Meteor.users.find({_id: this.userId},
-                           {fields: {'isAdmin': 1}});
+                           {fields: {'isAdmin': 1, 'isMaster': 1}});
 });
