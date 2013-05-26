@@ -108,6 +108,7 @@ Meteor.pages({
     '/professions': { to: 'professionsIndex', as: 'professions' },
     '/professions/new': { to: 'profession_backend', as: 'new_profession', before: authorizeAdmin, nav: 'inspire_backend' },
     '/professions/admin': { to: 'adminIndex', as: 'admin', before: authorizeAdmin },
+    '/users/admin': { to: 'adminUserIndex', as: 'adminUser', before: authorizeAdmin },
     '/profession/:_id': { to: 'professionShow', as: 'profession', before: setProfession, nav: 'inspire' },
     '/profession/:_id/inspire': { to: 'professionShow', before: setProfession, nav: 'inspire' },
     '/profession/:_id/learn': { to: 'professionShow', before: setProfession, nav: 'learn' },
@@ -360,6 +361,12 @@ Template.adminIndex.events({
         Meteor.call('deleteProfession', this._id, function (error) { if (!error) { console.log("Profession deleted."); } });
     }
     });
+
+Template.adminUserIndex.helpers({
+    users: function () {
+        return Meteor.users.find();
+    }
+});
 
 
 ////////////////////////////////////////////////////////

@@ -241,3 +241,41 @@
 
 
 <!-- ///////////////////////// -->
+
+
+<!-- /////// ADMIN USERS INDEX /////// -->
+
+<template name="adminUserIndex">
+	<div class="container">
+		<div class="row">
+			<div class="card" style="min-height:900px;">
+				<h2>Our Users</h2>
+				<hr>
+				{{#each users}}
+					{{> userBlock }}		
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="userBlock"> 
+	<div class="well row">
+		<div class="four columns">
+			<img src="{{rootPath}}{{this.profile.imageUrl}}">
+		</div>
+		<div class="eight columns">
+			<div class="row">
+				<h5 id="name">{{this.profile.name}}</h5>
+			</div>
+        	<div class="row">
+        		<div class="eight columns">
+        			<div class="two columns"><b>Email</b></div><div class="six columns"><p>{{this.email}}</p></div>
+        		</div>
+        	</div>
+		</div>
+	</div>
+</template>
+
+<!-- ///////////////////////// -->
+
