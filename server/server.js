@@ -43,3 +43,7 @@ Meteor.publish("userData", function () {
   return Meteor.users.find({_id: this.userId},
                            {fields: {'isAdmin': 1, 'isMaster': 1}});
 });
+
+Meteor.publish("directory", function () {
+	return Meteor.users.find({}, {fields: {userame: 1, profile: 1}});
+});

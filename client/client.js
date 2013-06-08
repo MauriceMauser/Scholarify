@@ -10,7 +10,7 @@ Deps.autorun( function () {
     isAdmin = current_user && current_user.isAdmin;
     Session.set("admin", isAdmin);
     console.log(current_user);
-    return
+    return isAdmin && Meteor.subscribe("directory");
     }
 );
 
