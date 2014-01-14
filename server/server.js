@@ -2,7 +2,7 @@ adminIdDevelopment = "8cghKjxFgq34qCMHY";
 adminIdProduction = "kqjMpabZNdXWQmTMw";
 
 Meteor.startup(function() {
-	process.env.MAIL_URL = 'smtp://postmaster%40scholarify.mailgun.org:0eaita-fefl8@smtp.mailgun.org:587';
+	//process.env.MAIL_URL = ''; REMOVED MAIL_URL
 
 	adminId = Meteor.users.findOne({_id: adminIdProduction}) ? adminIdProduction : adminIdDevelopment;
 
