@@ -45,5 +45,5 @@ Meteor.publish("userData", function () {
 });
 
 Meteor.publish("directory", function () {
-	return Meteor.users.find({}, {fields: {userame: 1, profile: 1}});
+	return Meteor.users.find({}, {fields: {username: 1, profile: 1}});
 });
