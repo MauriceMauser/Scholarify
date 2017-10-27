@@ -1,5 +1,5 @@
-adminIdDevelopment = "8cghKjxFgq34qCMHY";
-adminIdProduction = "kqjMpabZNdXWQmTMw";
+adminIdDevelopment = "";
+adminIdProduction = "";
 
 Meteor.startup(function() {
 	//process.env.MAIL_URL = ''; REMOVED MAIL_URL
